@@ -8,6 +8,8 @@ import json
 import logging
 import osmosdr
 import sys
+import crc
+
 
 
 
@@ -43,6 +45,15 @@ def open_file(List):
 		ret = open_json(line)
 		if ret != "":
 			List.append(ret)
+
+
+#Create crc about data that is transmitted
+def calc_crc(data):
+	aux = crc.crc(data)
+	l_crc = chr(aux&0xFF)
+	h_crc = chr(aux>>8)
+	return (data+h_crc+l_crc)
+	#Não precisa ser usado assim, deixei assim só para exemplificar o uso do CRC.
 
 
 def initialize_osmocon():
