@@ -75,5 +75,7 @@ sink = []
 
 open_file(list_commands)
 
+print list_commands
+
 
 initialize_osmocon()
