@@ -3,7 +3,7 @@
 ##################################################
 # GNU Radio Python Flow Graph
 # Title: Adsb Ghost
-# Generated: Thu Oct 13 11:25:09 2016
+# Generated: Thu Oct 13 12:28:14 2016
 ##################################################
 
 if __name__ == '__main__':
@@ -27,6 +27,7 @@ from gnuradio.eng_option import eng_option
 from gnuradio.filter import firdes
 from gnuradio.qtgui import Range, RangeWidget
 from optparse import OptionParser
+import epy_block_0
 import numpy as np
 import osmosdr
 import sip
@@ -68,6 +69,7 @@ class adsb_ghost(gr.top_block, Qt.QWidget):
         self.preamble = preamble = 0xA140
         self.klm_data = klm_data = 0x8D4840D6202CC371C32CE0576098
         self.freq_corr = freq_corr = 0
+        self.fc = fc = 1090e6
 
         ##################################################
         # Blocks
@@ -124,7 +126,7 @@ class adsb_ghost(gr.top_block, Qt.QWidget):
         self.top_layout.addWidget(self._qtgui_time_sink_x_0_win)
         self.osmosdr_sink_0 = osmosdr.sink( args="numchan=" + str(1) + " " + '' )
         self.osmosdr_sink_0.set_sample_rate(samp_rate)
-        self.osmosdr_sink_0.set_center_freq(1090e6 - 10e3, 0)
+        self.osmosdr_sink_0.set_center_freq(fc - 10e3, 0)
         self.osmosdr_sink_0.set_freq_corr(freq_corr, 0)
         self.osmosdr_sink_0.set_gain(0, 0)
         self.osmosdr_sink_0.set_if_gain(30, 0)
@@ -132,43 +134,32 @@ class adsb_ghost(gr.top_block, Qt.QWidget):
         self.osmosdr_sink_0.set_antenna('', 0)
         self.osmosdr_sink_0.set_bandwidth(0, 0)
           
-        self.interp_fir_filter_xxx_0_0 = filter.interp_fir_filter_fff(2, ([1, -1]))
-        self.interp_fir_filter_xxx_0_0.declare_sample_delay(0)
         self.interp_fir_filter_xxx_0 = filter.interp_fir_filter_fff(sps, (np.ones(sps)))
         self.interp_fir_filter_xxx_0.declare_sample_delay(0)
-        self.blocks_vector_source_x_0_0 = blocks.vector_source_b(tuple(int(x) for x in bin(preamble)[2:]), True, 1, [])
-        self.blocks_vector_source_x_0 = blocks.vector_source_b(tuple(int(x) for x in bin(klm_data)[2:]), True, 1, [])
-        self.blocks_stream_mux_0 = blocks.stream_mux(gr.sizeof_float*1, (16, 2*112, 1000000))
+        self.epy_block_0 = epy_block_0.blk()
+        self.blocks_vector_source_x_0_0 = blocks.vector_source_i(tuple(int(x) for x in bin(preamble)[2:]), True, 1, [])
+        self.blocks_vector_source_x_0 = blocks.vector_source_i(tuple(int(x) for x in bin(klm_data)[2:]), True, 1, [])
+        self.blocks_stream_mux_0 = blocks.stream_mux(gr.sizeof_int*1, (16, 2*112, 1000000))
         self.blocks_multiply_xx_0 = blocks.multiply_vcc(1)
-        self.blocks_multiply_const_vxx_0_0 = blocks.multiply_const_vff((0.5, ))
-        self.blocks_multiply_const_vxx_0 = blocks.multiply_const_vff((2, ))
+        self.blocks_int_to_float_0 = blocks.int_to_float(1, 1)
         self.blocks_float_to_complex_0 = blocks.float_to_complex(1)
-        self.blocks_char_to_float_0_0 = blocks.char_to_float(1, 1)
-        self.blocks_char_to_float_0 = blocks.char_to_float(1, 1)
-        self.blocks_add_const_vxx_0_1_0 = blocks.add_const_vff((1, ))
-        self.blocks_add_const_vxx_0 = blocks.add_const_vff((-1, ))
         self.analog_sig_source_x_0 = analog.sig_source_c(samp_rate, analog.GR_COS_WAVE, 10e3, 1, 0)
-        self.analog_const_source_x_0 = analog.sig_source_f(0, analog.GR_CONST_WAVE, 0, 0, 0)
+        self.analog_const_source_x_0 = analog.sig_source_i(0, analog.GR_CONST_WAVE, 0, 0, 0)
 
         ##################################################
         # Connections
         ##################################################
         self.connect((self.analog_const_source_x_0, 0), (self.blocks_stream_mux_0, 2))    
         self.connect((self.analog_sig_source_x_0, 0), (self.blocks_multiply_xx_0, 0))    
-        self.connect((self.blocks_add_const_vxx_0, 0), (self.interp_fir_filter_xxx_0_0, 0))    
-        self.connect((self.blocks_add_const_vxx_0_1_0, 0), (self.blocks_multiply_const_vxx_0_0, 0))    
-        self.connect((self.blocks_char_to_float_0, 0), (self.blocks_multiply_const_vxx_0, 0))    
-        self.connect((self.blocks_char_to_float_0_0, 0), (self.blocks_stream_mux_0, 0))    
         self.connect((self.blocks_float_to_complex_0, 0), (self.blocks_multiply_xx_0, 1))    
-        self.connect((self.blocks_multiply_const_vxx_0, 0), (self.blocks_add_const_vxx_0, 0))    
-        self.connect((self.blocks_multiply_const_vxx_0_0, 0), (self.blocks_stream_mux_0, 1))    
+        self.connect((self.blocks_int_to_float_0, 0), (self.interp_fir_filter_xxx_0, 0))    
         self.connect((self.blocks_multiply_xx_0, 0), (self.osmosdr_sink_0, 0))    
-        self.connect((self.blocks_stream_mux_0, 0), (self.interp_fir_filter_xxx_0, 0))    
-        self.connect((self.blocks_vector_source_x_0, 0), (self.blocks_char_to_float_0, 0))    
-        self.connect((self.blocks_vector_source_x_0_0, 0), (self.blocks_char_to_float_0_0, 0))    
+        self.connect((self.blocks_stream_mux_0, 0), (self.blocks_int_to_float_0, 0))    
+        self.connect((self.blocks_vector_source_x_0, 0), (self.epy_block_0, 0))    
+        self.connect((self.blocks_vector_source_x_0_0, 0), (self.blocks_stream_mux_0, 0))    
+        self.connect((self.epy_block_0, 0), (self.blocks_stream_mux_0, 1))    
         self.connect((self.interp_fir_filter_xxx_0, 0), (self.blocks_float_to_complex_0, 0))    
         self.connect((self.interp_fir_filter_xxx_0, 0), (self.qtgui_time_sink_x_0, 0))    
-        self.connect((self.interp_fir_filter_xxx_0_0, 0), (self.blocks_add_const_vxx_0_1_0, 0))    
 
     def closeEvent(self, event):
         self.settings = Qt.QSettings("GNU Radio", "adsb_ghost")
@@ -219,6 +210,13 @@ class adsb_ghost(gr.top_block, Qt.QWidget):
     def set_freq_corr(self, freq_corr):
         self.freq_corr = freq_corr
         self.osmosdr_sink_0.set_freq_corr(self.freq_corr, 0)
+
+    def get_fc(self):
+        return self.fc
+
+    def set_fc(self, fc):
+        self.fc = fc
+        self.osmosdr_sink_0.set_center_freq(self.fc - 10e3, 0)
 
 
 def main(top_block_cls=adsb_ghost, options=None):
