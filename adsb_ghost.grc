@@ -731,73 +731,6 @@
     </param>
   </block>
   <block>
-    <key>epy_block</key>
-    <param>
-      <key>alias</key>
-      <value></value>
-    </param>
-    <param>
-      <key>_io_cache</key>
-      <value>('PPM mapper', 'blk', [], [('0', 'int')], [('0', 'int')], 'Embedded Python Block example - a simple multiply const', [])</value>
-    </param>
-    <param>
-      <key>_source_code</key>
-      <value>"""
-Embedded Python Blocks:
-
-Each time this file is saved, GRC will instantiate the first class it finds
-to get ports and parameters of your block. The arguments to __init__  will
-be the parameters. All of them are required to have default values!
-"""
-
-import numpy as np
-from gnuradio import gr
-
-
-class blk(gr.interp_block):  # other base classes are basic_block, decim_block, interp_block
-    """Embedded Python Block example - a simple multiply const"""
-
-    def __init__(self):  # only default arguments here
-        """arguments to this function show up as parameters in GRC"""
-        gr.interp_block.__init__(
-            self,
-            name='PPM mapper',   # will show up in GRC
-            in_sig=[np.int32],
-            out_sig=[np.int32],
-            interp=2
-        )
-
-    def work(self, input_items, output_items):
-        """example: multiply with constant"""
-        print(output_items)
-        for i, b in enumerate(input_items[0]):
-            output_items[0][2*i] = b
-            output_items[0][2*i + 1] = not b
-        return len(output_items[0])
-</value>
-    </param>
-    <param>
-      <key>comment</key>
-      <value></value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>1</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(216, 184)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>id</key>
-      <value>epy_block_0</value>
-    </param>
-  </block>
-  <block>
     <key>import</key>
     <param>
       <key>alias</key>
@@ -1899,6 +1832,61 @@ class blk(gr.interp_block):  # other base classes are basic_block, decim_block, 
     </param>
   </block>
   <block>
+    <key>epy_block</key>
+    <param>
+      <key>alias</key>
+      <value></value>
+    </param>
+    <param>
+      <key>_io_cache</key>
+      <value>('PPM mapper', 'blk', [], [('0', 'int')], [('0', 'int')], '', [])</value>
+    </param>
+    <param>
+      <key>_source_code</key>
+      <value>import numpy as np
+from gnuradio import gr
+
+
+class blk(gr.interp_block):
+
+    def __init__(self):
+        gr.interp_block.__init__(
+            self,
+            name='PPM mapper',
+            in_sig=[np.int32],
+            out_sig=[np.int32],
+            interp=2
+        )
+
+    def work(self, input_items, output_items):
+        for i, b in enumerate(input_items[0]):
+            output_items[0][2*i] = b
+            output_items[0][2*i + 1] = not b
+        return len(output_items[0])
+</value>
+    </param>
+    <param>
+      <key>comment</key>
+      <value></value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>1</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(216, 184)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>id</key>
+      <value>ppm_mapper</value>
+    </param>
+  </block>
+  <block>
     <key>qtgui_time_sink_x</key>
     <param>
       <key>autoscale</key>
@@ -2299,7 +2287,7 @@ class blk(gr.interp_block):  # other base classes are basic_block, decim_block, 
   </connection>
   <connection>
     <source_block_id>blocks_vector_source_x_0</source_block_id>
-    <sink_block_id>epy_block_0</sink_block_id>
+    <sink_block_id>ppm_mapper</sink_block_id>
     <source_key>0</source_key>
     <sink_key>0</sink_key>
   </connection>
@@ -2308,12 +2296,6 @@ class blk(gr.interp_block):  # other base classes are basic_block, decim_block, 
     <sink_block_id>blocks_stream_mux_0</sink_block_id>
     <source_key>0</source_key>
     <sink_key>0</sink_key>
-  </connection>
-  <connection>
-    <source_block_id>epy_block_0</source_block_id>
-    <sink_block_id>blocks_stream_mux_0</sink_block_id>
-    <source_key>0</source_key>
-    <sink_key>1</sink_key>
   </connection>
   <connection>
     <source_block_id>interp_fir_filter_xxx_0</source_block_id>
@@ -2326,5 +2308,11 @@ class blk(gr.interp_block):  # other base classes are basic_block, decim_block, 
     <sink_block_id>qtgui_time_sink_x_0</sink_block_id>
     <source_key>0</source_key>
     <sink_key>0</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>ppm_mapper</source_block_id>
+    <sink_block_id>blocks_stream_mux_0</sink_block_id>
+    <source_key>0</source_key>
+    <sink_key>1</sink_key>
   </connection>
 </flow_graph>
