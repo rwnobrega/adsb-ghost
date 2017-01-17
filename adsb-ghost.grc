@@ -551,7 +551,7 @@
     </param>
     <param>
       <key>file</key>
-      <value>/home/rwnobrega/Desktop/SDR/adsb/teste.bin</value>
+      <value>./teste.bin</value>
     </param>
     <param>
       <key>_coordinate</key>
@@ -606,7 +606,7 @@
     </param>
     <param>
       <key>file</key>
-      <value>/home/rwnobrega/Desktop/SDR/adsb/klmdata.bin</value>
+      <value>./preamble.bin</value>
     </param>
     <param>
       <key>_coordinate</key>

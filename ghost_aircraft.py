@@ -6,12 +6,21 @@
 # imports
 import json
 import logging
-import osmosdr
 import sys
 import crc
+import numpy as np
+import SoapySDR
+from SoapySDR import * #SOAPY_SDR_ constants
+import math
 
-
-
+clockRate =  None
+rate = 12e6
+txBw = None
+txAnt = "TX/RX"
+txGain = None # ('LNA', 'VGA', 'AMP')
+freq = 1090e9
+txChan = 0
+waveFreq = None
 
 #Function to load json objects from strings
 def open_json(line):
@@ -38,8 +47,8 @@ def open_file(List):
 		arq = open(arquivo)
 	except:
 		logging.error("Arquivo não encontrado")
-		exit()
-        
+		exit()        
+
 #Call the function which read the file and mount a list with json objects       
 	for line in arq:
 		ret = open_json(line)
@@ -58,16 +67,50 @@ def calc_crc(data):
 
 def initialize_osmocon():
 
-	global sink 
-	sink = osmosdr.sink( args="numchan=" + str(1) + " " + "" )
-	sink.set_sample_rate(12e6)
-	sink.set_center_freq(1090e6 - 10e3, 0)
-	sink.set_freq_corr(0, 0)
-	sink.set_gain(10, 0)
-	sink.set_if_gain(20, 0)
-	sink.set_bb_gain(20, 0)
-	sink.set_antenna("", 0)
-	sink.set_bandwidth(0, 0)
+	#enumerate devices
+	#results = SoapySDR.Device.enumerate()
+	#create device instance
+	#args can be user defined or from the enumeration result
+	args = dict(driver="hackrf")
+	try :
+		sdr = SoapySDR.Device(args)
+	except:
+		logging.error("HarckRF não encontrado")
+		exit()
+
+	if waveFreq is None: waveFreq = rate/10
+
+
+	#set clock rate first
+    if clockRate is not None:
+    	sdr.setMasterClockRate(clockRate)
+
+    #set sample rate
+    sdr.setSampleRate(SOAPY_SDR_TX, txChan, rate)
+
+    #set bandwidth
+    if txBw is not None: sdr.setBandwidth(SOAPY_SDR_TX, txChan, txBw)
+
+    #set antenna
+    if txAnt is not None: sdr.setAntenna(SOAPY_SDR_TX, txChan, txAnt)
+
+    #set overall gain
+    if txGain is not None: sdr.setGain(SOAPY_SDR_TX, txChan, txGain)
+
+    #tune frontends
+    if freq is not None: sdr.setFrequency(SOAPY_SDR_TX, txChan, freq)
+
+    #create tx stream
+    txStream = sdr.setupStream(SOAPY_SDR_TX, "CF32", [txChan])
+    sdr.activateStream(txStream)
+
+    phaseAcc = 0
+    phaseInc = 2*math.pi*waveFreq/rate
+    
+    streamMTU = sdr.getStreamMTU(txStream)
+    sampsCh0 = np.array([ampl]*streamMTU, np.complex64)
+
+	
 
 list_commands = []
 
