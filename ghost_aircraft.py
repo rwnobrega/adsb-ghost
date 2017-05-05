@@ -28,62 +28,62 @@ def open_json(line):
         return json.loads(line.strip())
     except:
         logging.warning("Not possible parse object json : " + line)
-        return	""
+        return  ""
 
 
 def open_file(List):
-	if len(sys.argv) < 1:
-		logging.error("Arquivo não passado como parametro")
-		exit()
+    if len(sys.argv) < 1:
+        logging.error("Arquivo não passado como parametro")
+        exit()
 
-	try:
-		arquivo = sys.argv[1]
-	except:
-		logging.error("Erro ao abrir o arquivo")
-		exit()
+    try:
+        arquivo = sys.argv[1]
+    except:
+        logging.error("Erro ao abrir o arquivo")
+        exit()
 
 #Try to open the file in the event error exit the program
-	try:
-		arq = open(arquivo)
-	except:
-		logging.error("Arquivo não encontrado")
-		exit()        
+    try:
+        arq = open(arquivo)
+    except:
+        logging.error("Arquivo não encontrado")
+        exit()
 
-#Call the function which read the file and mount a list with json objects       
-	for line in arq:
-		ret = open_json(line)
-		if ret != "":
-			List.append(ret)
+#Call the function which read the file and mount a list with json objects
+    for line in arq:
+        ret = open_json(line)
+        if ret != "":
+            List.append(ret)
 
 
 #Create crc about data that is transmitted
 def calc_crc(data):
-	aux = crc.crc(data)
-	l_crc = chr(aux&0xFF)
-	h_crc = chr(aux>>8)
-	return (data+h_crc+l_crc)
-	#Não precisa ser usado assim, deixei assim só para exemplificar o uso do CRC.
+    aux = crc.crc(data)
+    l_crc = chr(aux&0xFF)
+    h_crc = chr(aux>>8)
+    return (data+h_crc+l_crc)
+    #Não precisa ser usado assim, deixei assim só para exemplificar o uso do CRC.
 
 
 def initialize_osmocon():
 
-	#enumerate devices
-	#results = SoapySDR.Device.enumerate()
-	#create device instance
-	#args can be user defined or from the enumeration result
-	args = dict(driver="hackrf")
-	try :
-		sdr = SoapySDR.Device(args)
-	except:
-		logging.error("HarckRF não encontrado")
-		exit()
+    #enumerate devices
+    #results = SoapySDR.Device.enumerate()
+    #create device instance
+    #args can be user defined or from the enumeration result
+    args = dict(driver="hackrf")
+    try :
+        sdr = SoapySDR.Device(args)
+    except:
+        logging.error("HarckRF não encontrado")
+        exit()
 
-	if waveFreq is None: waveFreq = rate/10
+    if waveFreq is None: waveFreq = rate/10
 
 
-	#set clock rate first
+    #set clock rate first
     if clockRate is not None:
-    	sdr.setMasterClockRate(clockRate)
+        sdr.setMasterClockRate(clockRate)
 
     #set sample rate
     sdr.setSampleRate(SOAPY_SDR_TX, txChan, rate)
@@ -106,11 +106,11 @@ def initialize_osmocon():
 
     phaseAcc = 0
     phaseInc = 2*math.pi*waveFreq/rate
-    
+
     streamMTU = sdr.getStreamMTU(txStream)
     sampsCh0 = np.array([ampl]*streamMTU, np.complex64)
 
-	
+
 
 list_commands = []
 
@@ -118,7 +118,7 @@ sink = []
 
 open_file(list_commands)
 
-print list_commands
+print(list_commands)
 
 
 initialize_osmocon()

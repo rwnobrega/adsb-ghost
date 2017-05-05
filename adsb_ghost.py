@@ -3,7 +3,7 @@
 ##################################################
 # GNU Radio Python Flow Graph
 # Title: Adsb Ghost
-# Generated: Thu Oct 13 17:06:31 2016
+# Generated: Wed May  3 15:55:31 2017
 ##################################################
 
 if __name__ == '__main__':
@@ -32,7 +32,7 @@ import osmosdr
 import ppm_mapper
 import sip
 import sys
-import time
+from gnuradio import qtgui
 
 
 class adsb_ghost(gr.top_block, Qt.QWidget):
@@ -41,6 +41,7 @@ class adsb_ghost(gr.top_block, Qt.QWidget):
         gr.top_block.__init__(self, "Adsb Ghost")
         Qt.QWidget.__init__(self)
         self.setWindowTitle("Adsb Ghost")
+        qtgui.util.check_set_qss()
         try:
             self.setWindowIcon(Qt.QIcon.fromTheme('gnuradio-grc'))
         except:
@@ -67,9 +68,9 @@ class adsb_ghost(gr.top_block, Qt.QWidget):
         self.Rs = Rs = 2e6
         self.sps = sps = int(samp_rate / Rs)
         self.preamble = preamble = 0xA140
-        self.klm_data = klm_data = 0x8D4840D6202CC371C32CE0576098
         self.freq_corr = freq_corr = 0
         self.fc = fc = 1090e6
+        self.adsb_data = adsb_data = 0x8D4840D6205054D414631992CFCF
 
         ##################################################
         # Blocks
@@ -85,32 +86,32 @@ class adsb_ghost(gr.top_block, Qt.QWidget):
         )
         self.qtgui_time_sink_x_0.set_update_time(0.1)
         self.qtgui_time_sink_x_0.set_y_axis(-1, 1)
-        
+
         self.qtgui_time_sink_x_0.set_y_label('Amplitude', "")
-        
+
         self.qtgui_time_sink_x_0.enable_tags(-1, True)
         self.qtgui_time_sink_x_0.set_trigger_mode(qtgui.TRIG_MODE_AUTO, qtgui.TRIG_SLOPE_POS, 0.0, 0, 0, "")
         self.qtgui_time_sink_x_0.enable_autoscale(False)
         self.qtgui_time_sink_x_0.enable_grid(False)
         self.qtgui_time_sink_x_0.enable_axis_labels(True)
         self.qtgui_time_sink_x_0.enable_control_panel(True)
-        
+
         if not True:
           self.qtgui_time_sink_x_0.disable_legend()
-        
+
         labels = ['', '', '', '', '',
                   '', '', '', '', '']
         widths = [1, 1, 1, 1, 1,
                   1, 1, 1, 1, 1]
         colors = ["blue", "red", "green", "black", "cyan",
                   "magenta", "yellow", "dark red", "dark green", "blue"]
-        styles = [0, 1, 1, 1, 1,
+        styles = [1, 1, 1, 1, 1,
                   1, 1, 1, 1, 1]
         markers = [0, -1, -1, -1, -1,
                    -1, -1, -1, -1, -1]
         alphas = [1.0, 1.0, 1.0, 1.0, 1.0,
                   1.0, 1.0, 1.0, 1.0, 1.0]
-        
+
         for i in xrange(1):
             if len(labels[i]) == 0:
                 self.qtgui_time_sink_x_0.set_line_label(i, "Data {0}".format(i))
@@ -121,7 +122,7 @@ class adsb_ghost(gr.top_block, Qt.QWidget):
             self.qtgui_time_sink_x_0.set_line_style(i, styles[i])
             self.qtgui_time_sink_x_0.set_line_marker(i, markers[i])
             self.qtgui_time_sink_x_0.set_line_alpha(i, alphas[i])
-        
+
         self._qtgui_time_sink_x_0_win = sip.wrapinstance(self.qtgui_time_sink_x_0.pyqwidget(), Qt.QWidget)
         self.top_layout.addWidget(self._qtgui_time_sink_x_0_win)
         self.ppm_mapper = ppm_mapper.blk()
@@ -134,11 +135,11 @@ class adsb_ghost(gr.top_block, Qt.QWidget):
         self.osmosdr_sink_0.set_bb_gain(30, 0)
         self.osmosdr_sink_0.set_antenna('', 0)
         self.osmosdr_sink_0.set_bandwidth(0, 0)
-          
+
         self.interp_fir_filter_xxx_0 = filter.interp_fir_filter_fff(sps, (np.ones(sps)))
         self.interp_fir_filter_xxx_0.declare_sample_delay(0)
         self.blocks_vector_source_x_0_0 = blocks.vector_source_i(tuple(int(x) for x in bin(preamble)[2:]), True, 1, [])
-        self.blocks_vector_source_x_0 = blocks.vector_source_i(tuple(int(x) for x in bin(klm_data)[2:]), True, 1, [])
+        self.blocks_vector_source_x_0 = blocks.vector_source_i(tuple(int(x) for x in bin(adsb_data)[2:]), True, 1, [])
         self.blocks_stream_mux_0 = blocks.stream_mux(gr.sizeof_int*1, (16, 2*112, 1000000))
         self.blocks_multiply_xx_0 = blocks.multiply_vcc(1)
         self.blocks_int_to_float_0 = blocks.int_to_float(1, 1)
@@ -149,17 +150,17 @@ class adsb_ghost(gr.top_block, Qt.QWidget):
         ##################################################
         # Connections
         ##################################################
-        self.connect((self.analog_const_source_x_0, 0), (self.blocks_stream_mux_0, 2))    
-        self.connect((self.analog_sig_source_x_0, 0), (self.blocks_multiply_xx_0, 0))    
-        self.connect((self.blocks_float_to_complex_0, 0), (self.blocks_multiply_xx_0, 1))    
-        self.connect((self.blocks_int_to_float_0, 0), (self.interp_fir_filter_xxx_0, 0))    
-        self.connect((self.blocks_multiply_xx_0, 0), (self.osmosdr_sink_0, 0))    
-        self.connect((self.blocks_stream_mux_0, 0), (self.blocks_int_to_float_0, 0))    
-        self.connect((self.blocks_vector_source_x_0, 0), (self.ppm_mapper, 0))    
-        self.connect((self.blocks_vector_source_x_0_0, 0), (self.blocks_stream_mux_0, 0))    
-        self.connect((self.interp_fir_filter_xxx_0, 0), (self.blocks_float_to_complex_0, 0))    
-        self.connect((self.interp_fir_filter_xxx_0, 0), (self.qtgui_time_sink_x_0, 0))    
-        self.connect((self.ppm_mapper, 0), (self.blocks_stream_mux_0, 1))    
+        self.connect((self.analog_const_source_x_0, 0), (self.blocks_stream_mux_0, 2))
+        self.connect((self.analog_sig_source_x_0, 0), (self.blocks_multiply_xx_0, 0))
+        self.connect((self.blocks_float_to_complex_0, 0), (self.blocks_multiply_xx_0, 1))
+        self.connect((self.blocks_int_to_float_0, 0), (self.interp_fir_filter_xxx_0, 0))
+        self.connect((self.blocks_multiply_xx_0, 0), (self.osmosdr_sink_0, 0))
+        self.connect((self.blocks_stream_mux_0, 0), (self.blocks_int_to_float_0, 0))
+        self.connect((self.blocks_vector_source_x_0, 0), (self.ppm_mapper, 0))
+        self.connect((self.blocks_vector_source_x_0_0, 0), (self.blocks_stream_mux_0, 0))
+        self.connect((self.interp_fir_filter_xxx_0, 0), (self.blocks_float_to_complex_0, 0))
+        self.connect((self.interp_fir_filter_xxx_0, 0), (self.qtgui_time_sink_x_0, 0))
+        self.connect((self.ppm_mapper, 0), (self.blocks_stream_mux_0, 1))
 
     def closeEvent(self, event):
         self.settings = Qt.QSettings("GNU Radio", "adsb_ghost")
@@ -197,13 +198,6 @@ class adsb_ghost(gr.top_block, Qt.QWidget):
         self.preamble = preamble
         self.blocks_vector_source_x_0_0.set_data(tuple(int(x) for x in bin(self.preamble)[2:]), [])
 
-    def get_klm_data(self):
-        return self.klm_data
-
-    def set_klm_data(self, klm_data):
-        self.klm_data = klm_data
-        self.blocks_vector_source_x_0.set_data(tuple(int(x) for x in bin(self.klm_data)[2:]), [])
-
     def get_freq_corr(self):
         return self.freq_corr
 
@@ -217,6 +211,13 @@ class adsb_ghost(gr.top_block, Qt.QWidget):
     def set_fc(self, fc):
         self.fc = fc
         self.osmosdr_sink_0.set_center_freq(self.fc - 10e3, 0)
+
+    def get_adsb_data(self):
+        return self.adsb_data
+
+    def set_adsb_data(self, adsb_data):
+        self.adsb_data = adsb_data
+        self.blocks_vector_source_x_0.set_data(tuple(int(x) for x in bin(self.adsb_data)[2:]), [])
 
 
 def main(top_block_cls=adsb_ghost, options=None):
