@@ -24,6 +24,8 @@ import math
 # the polynominal generattor code for CRC
 GENERATOR = "1111111111111010000001001"
 
+def bin2hex(data_bin):
+    return '{0:012X}'.format(int(data_bin, 2))
 
 def hex2bin(hexstr):
     """Convert a hexdecimal string to binary string, with zero fillings. """

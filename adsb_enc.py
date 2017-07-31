@@ -43,21 +43,28 @@ class Encoder():
         crc = '{0:06X}'.format(int(util.crc(msg0 + '000000', encode=True), 2))
         return msg0 + crc
 
-    def aircraft_position(self, SS):
-            DF = '11' #Downforlmat
-            TC = '12' #Typecode of message
-            SS =  '00' #Surveillance status
-            msg = DF + TC + SS + NICsb + ALT + T + F + LAT_CPR + LON_CPR
+    def aircraft_position(self, TC_SS_NICsb , ALT, LAT_CPR, LON_CPR):
+            DF = '11' #Downformat
+            ALT = ALT #Altitude
+            T = '0' #Time
+            F = '0' #CPR odd/even frame flag
+            LAT_CPR = LAT_CPR #Latitude in CPR format
+            LON_CPR = LON_CPR #Longitude in CPR format
+            msg = DF + TC_SS_NICsb + ALT + T + F + LAT_CPR + LON_CPR
+            return msg
+
 encoder = Encoder()
-message2send0 = encoder.aircraft_position('00')
-message2send = encoder.aircraft_id('4840D6', 'TESTEFLY')
-print("Downlink format: %s " % adsb_dec.df(message2send))
-print("ICAO aircraft address: %s " % adsb_dec.icao(message2send))
-print("Message data: %s " % adsb_dec.data(message2send))
-print("Type code: %s " % adsb_dec.typecode(message2send))
-if adsb_dec.typecode(message2send) <= 4 and adsb_dec.typecode(message2send) >= 1:
+message_position = encoder.aircraft_position('58', 'C38', '16B48', 'C8AC')
+print('Message Position is: %s' % message_position)
+
+message_id = encoder.aircraft_id('4840D6', 'TESTEFLY')
+print("Downlink format: %s " % adsb_dec.df(message_id))
+print("ICAO aircraft address: %s " % adsb_dec.icao(message_id))
+print("Message data: %s " % adsb_dec.data(message_id))
+print("Type code: %s " % adsb_dec.typecode(message_id))
+if adsb_dec.typecode(message_id) <= 4 and adsb_dec.typecode(message_id) >= 1:
     print("###########################  Aircraft ID Message #############################")
-    print("Aircraft callsign: %s " % adsb_dec.callsign(message2send))
-    print("Aircraft category number: %s" % adsb_dec.category(message2send))
-if adsb_dec.typecode(message2send) <= 18 and adsb_dec.typecode(message2send) >= 9:
+    print("Aircraft callsign: %s " % adsb_dec.callsign(message_id))
+    print("Aircraft category number: %s" % adsb_dec.category(message_id))
+if adsb_dec.typecode(message_id) <= 18 and adsb_dec.typecode(message_id) >= 9:
     print("########################### Airborne Positions Message #############################")
