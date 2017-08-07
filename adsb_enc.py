@@ -21,7 +21,60 @@ import math
 import util
 import adsb_dec
 
+
 class Encoder():
+
+    def __init__(self):
+        self.lat_zones = 15
+        self.nb = 17
+        self.evenlist = {}
+        self.oddlist = {}
+        self.nl_table = None
+        self.lat_limit = [0]*60 #limites de latitude (59)
+        self.lat_limits()
+        self.nl_tables()
+
+    def lat_limits(self):
+    	self.lat_limit[1] = 90
+    	for i in xrange(2,4*self.lat_zones-1 + 1):
+    		self.lat_limit[i] = int(round((180/math.pi) * math.acos(math.sqrt((1-math.cos(math.pi/(2.*15)))/(1-math.cos(2*math.pi/i))))))
+
+    def nl_tables(self):
+    	# if self.nl_table is None:
+        self.nl_table = [0] * 91
+
+    	for declat_in in self.lat_limit[1:]:
+    		for j in range(declat_in,0,-1):
+    			if j >= 87 or j == 0:
+    				continue
+    			self.nl_table[j] = int(math.floor( (2.0*math.pi) / math.acos(1.0 - (1.0-math.cos(math.pi/(2.0*self.lat_zones))) / math.cos( (math.pi/180.0)*abs(j) )**2 )))
+    			assert self.nl_table[j] in xrange(1,60)
+
+    def nl(self, declat_in):
+    	declat_in_ = abs(int(math.floor(declat_in)))
+    	if declat_in_ == 0:
+    		return 59
+    	if declat_in_ == 87:
+    		return 2
+    	if declat_in_ > 87:
+    		return 1
+
+    	return self.nl_table[declat_in_]
+
+    def rlat(self, declat, lon):
+
+    	return int((360/(4*self.lat_zones)) * (1.*lon/(2**self.nb) + math.floor(1.*declat/(360/(4*self.lat_zones)))))
+
+    def cpr_encode(self, lat, lon):
+        tmp = 360
+        dlat = 360/(4*self.lat_zones)
+        latitude = int(math.floor(2**self.nb*(lat % dlat) / dlat + 0.5))
+        cond = self.nl(self.rlat(lat, latitude))
+        if cond > 0:
+            tmp = 360 / cond
+        dlon = tmp
+        longitude= int(math.floor(2**self.nb*(lon % dlon) / dlon + 0.5))
+    	return (latitude, longitude)
 
     def aircraft_id(self, icao, data):
         """Aircraft ID
@@ -44,16 +97,18 @@ class Encoder():
         return msg0 + crc
 
     def aircraft_position(self, TC_SS_NICsb , ALT, LAT_CPR, LON_CPR):
-            DF = '11' #Downformat
-            ALT = ALT #Altitude
-            T = '0' #Time
-            F = '0' #CPR odd/even frame flag
-            LAT_CPR = LAT_CPR #Latitude in CPR format
-            LON_CPR = LON_CPR #Longitude in CPR format
-            msg = DF + TC_SS_NICsb + ALT + T + F + LAT_CPR + LON_CPR
-            return msg
+        DF = '11' #Downformat
+        ALT = ALT #Altitude
+        T = '0' #Time
+        F = '0' #CPR odd/even frame flag
+        LAT_CPR = LAT_CPR #Latitude in CPR format
+        LON_CPR = LON_CPR #Longitude in CPR format
+        msg = DF + TC_SS_NICsb + ALT + T + F + LAT_CPR + LON_CPR
+        return msg
 
 encoder = Encoder()
+coordenadas = encoder.cpr_encode(52.25720, 3.91937)
+print(coordenadas)
 message_position = encoder.aircraft_position('58', 'C38', '16B48', 'C8AC')
 print('Message Position is: %s' % message_position)
 
