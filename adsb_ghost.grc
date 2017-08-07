@@ -128,11 +128,38 @@
     </param>
     <param>
       <key>id</key>
-      <value>adsb_data</value>
+      <value>adsb_data_0</value>
     </param>
     <param>
       <key>value</key>
       <value>0x8D4840D6205054D414631992CFCF</value>
+    </param>
+  </block>
+  <block>
+    <key>variable</key>
+    <param>
+      <key>comment</key>
+      <value></value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(704, 568)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>id</key>
+      <value>adsb_data_1</value>
+    </param>
+    <param>
+      <key>value</key>
+      <value>0x8D4840D6202CC371C32CE0576098</value>
     </param>
   </block>
   <block>
@@ -326,11 +353,11 @@
     </param>
     <param>
       <key>_enabled</key>
-      <value>True</value>
+      <value>1</value>
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(200, 276)</value>
+      <value>(608, 220)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -381,7 +408,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(520, 352)</value>
+      <value>(520, 652)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -436,7 +463,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(328, 448)</value>
+      <value>(328, 744)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -479,7 +506,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(584, 180)</value>
+      <value>(984, 132)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -526,7 +553,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(696, 432)</value>
+      <value>(696, 728)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -577,7 +604,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(400, 152)</value>
+      <value>(840, 104)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -613,7 +640,7 @@
     </param>
   </block>
   <block>
-    <key>blocks_vector_source_x</key>
+    <key>blocks_stream_mux</key>
     <param>
       <key>alias</key>
       <value></value>
@@ -628,11 +655,11 @@
     </param>
     <param>
       <key>_enabled</key>
-      <value>True</value>
+      <value>1</value>
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(16, 164)</value>
+      <value>(456, 168)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -640,7 +667,11 @@
     </param>
     <param>
       <key>id</key>
-      <value>blocks_vector_source_x_0</value>
+      <value>blocks_stream_mux_0_0</value>
+    </param>
+    <param>
+      <key>lengths</key>
+      <value>2*112, 2*112</value>
     </param>
     <param>
       <key>maxoutbuf</key>
@@ -651,24 +682,16 @@
       <value>0</value>
     </param>
     <param>
+      <key>num_inputs</key>
+      <value>2</value>
+    </param>
+    <param>
       <key>type</key>
       <value>int</value>
     </param>
     <param>
-      <key>repeat</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>tags</key>
-      <value>[]</value>
-    </param>
-    <param>
       <key>vlen</key>
       <value>1</value>
-    </param>
-    <param>
-      <key>vector</key>
-      <value>tuple(int(x) for x in bin(adsb_data)[2:])</value>
     </param>
   </block>
   <block>
@@ -691,7 +714,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(160, 84)</value>
+      <value>(312, 52)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -728,6 +751,124 @@
     <param>
       <key>vector</key>
       <value>tuple(int(x) for x in bin(preamble)[2:])</value>
+    </param>
+  </block>
+  <block>
+    <key>blocks_vector_source_x</key>
+    <param>
+      <key>alias</key>
+      <value></value>
+    </param>
+    <param>
+      <key>comment</key>
+      <value></value>
+    </param>
+    <param>
+      <key>affinity</key>
+      <value></value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(88, 268)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>id</key>
+      <value>blocks_vector_source_x_0_0_0</value>
+    </param>
+    <param>
+      <key>maxoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>minoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>type</key>
+      <value>int</value>
+    </param>
+    <param>
+      <key>repeat</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>tags</key>
+      <value>[]</value>
+    </param>
+    <param>
+      <key>vlen</key>
+      <value>1</value>
+    </param>
+    <param>
+      <key>vector</key>
+      <value>tuple(int(x) for x in bin(adsb_data_1)[2:])</value>
+    </param>
+  </block>
+  <block>
+    <key>blocks_vector_source_x</key>
+    <param>
+      <key>alias</key>
+      <value></value>
+    </param>
+    <param>
+      <key>comment</key>
+      <value></value>
+    </param>
+    <param>
+      <key>affinity</key>
+      <value></value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(80, 164)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>id</key>
+      <value>blocks_vector_source_x_1</value>
+    </param>
+    <param>
+      <key>maxoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>minoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>type</key>
+      <value>int</value>
+    </param>
+    <param>
+      <key>repeat</key>
+      <value>True</value>
+    </param>
+    <param>
+      <key>tags</key>
+      <value>[]</value>
+    </param>
+    <param>
+      <key>vlen</key>
+      <value>1</value>
+    </param>
+    <param>
+      <key>vector</key>
+      <value>tuple(int(x) for x in bin(adsb_data_0)[2:])</value>
     </param>
   </block>
   <block>
@@ -781,7 +922,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(64, 436)</value>
+      <value>(64, 732)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -980,7 +1121,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(816, 408)</value>
+      <value>(816, 708)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -1047,7 +1188,7 @@ class blk(gr.interp_block):
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(216, 184)</value>
+      <value>(664, 136)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -1094,7 +1235,7 @@ class blk(gr.interp_block):
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(328, 556)</value>
+      <value>(328, 852)</value>
     </param>
     <param>
       <key>gui_hint</key>
@@ -1458,7 +1599,7 @@ class blk(gr.interp_block):
     <sink_key>0</sink_key>
   </connection>
   <connection>
-    <source_block_id>blocks_vector_source_x_0</source_block_id>
+    <source_block_id>blocks_stream_mux_0_0</source_block_id>
     <sink_block_id>ppm_mapper</sink_block_id>
     <source_key>0</source_key>
     <sink_key>0</sink_key>
@@ -1466,6 +1607,18 @@ class blk(gr.interp_block):
   <connection>
     <source_block_id>blocks_vector_source_x_0_0</source_block_id>
     <sink_block_id>blocks_stream_mux_0</sink_block_id>
+    <source_key>0</source_key>
+    <sink_key>0</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>blocks_vector_source_x_0_0_0</source_block_id>
+    <sink_block_id>blocks_stream_mux_0_0</sink_block_id>
+    <source_key>0</source_key>
+    <sink_key>1</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>blocks_vector_source_x_1</source_block_id>
+    <sink_block_id>blocks_stream_mux_0_0</sink_block_id>
     <source_key>0</source_key>
     <sink_key>0</sink_key>
   </connection>
