@@ -30,40 +30,42 @@ class Encoder():
         self.evenlist = {}
         self.oddlist = {}
         self.nl_table = None
-        self.lat_limit = [0]*60 #limites de latitude (59)
+        self.lat_limit = [0]*60
         self.lat_limits()
         self.nl_tables()
 
     def lat_limits(self):
-    	self.lat_limit[1] = 90
-    	for i in xrange(2,4*self.lat_zones-1 + 1):
-    		self.lat_limit[i] = int(round((180/math.pi) * math.acos(math.sqrt((1-math.cos(math.pi/(2.*15)))/(1-math.cos(2*math.pi/i))))))
+        self.lat_limit[1] = 90
+        for i in xrange(2, 4*self.lat_zones-1 + 1):
+            self.lat_limit[i] = int(round((180/math.pi) * math.acos(math.sqrt
+                                    ((1-math.cos(math.pi/(2.*15)))/(1-math.cos
+                                     (2*math.pi/i))))))
 
     def nl_tables(self):
-    	# if self.nl_table is None:
         self.nl_table = [0] * 91
-
-    	for declat_in in self.lat_limit[1:]:
-    		for j in range(declat_in,0,-1):
-    			if j >= 87 or j == 0:
-    				continue
-    			self.nl_table[j] = int(math.floor( (2.0*math.pi) / math.acos(1.0 - (1.0-math.cos(math.pi/(2.0*self.lat_zones))) / math.cos( (math.pi/180.0)*abs(j) )**2 )))
-    			assert self.nl_table[j] in xrange(1,60)
+        for declat_in in self.lat_limit[1:]:
+            for j in range(declat_in, 0, -1):
+                if j >= 87 or j == 0:
+                    continue
+                self.nl_table[j] = int(math.floor((2.0*math.pi)/math.acos(1.0 -
+                                       (1.0 - math.cos(math.pi / (2.0 *
+                                        self.lat_zones))) / math.cos((math.pi /
+                                         180.0) * abs(j))**2)))
+                assert self.nl_table[j] in xrange(1, 60)
 
     def nl(self, declat_in):
-    	declat_in_ = abs(int(math.floor(declat_in)))
-    	if declat_in_ == 0:
-    		return 59
-    	if declat_in_ == 87:
-    		return 2
-    	if declat_in_ > 87:
-    		return 1
-
-    	return self.nl_table[declat_in_]
+        declat_in_ = abs(int(math.floor(declat_in)))
+        if declat_in_ == 0:
+            return 59
+        if declat_in_ == 87:
+            return 2
+        if declat_in_ > 87:
+            return 1
+        return self.nl_table[declat_in_]
 
     def rlat(self, declat, lon):
-
-    	return int((360/(4*self.lat_zones)) * (1.*lon/(2**self.nb) + math.floor(1.*declat/(360/(4*self.lat_zones)))))
+        return int((360/(4*self.lat_zones)) * (1.*lon/(2**self.nb) +
+                   math.floor(1.*declat/(360/(4*self.lat_zones)))))
 
     def cpr_encode(self, lat, lon):
         tmp = 360
@@ -73,8 +75,8 @@ class Encoder():
         if cond > 0:
             tmp = 360 / cond
         dlon = tmp
-        longitude= int(math.floor(2**self.nb*(lon % dlon) / dlon + 0.5))
-    	return (latitude, longitude)
+        longitude = int(math.floor(2**self.nb * (lon % dlon) / dlon + 0.5))
+        return (latitude, longitude)
 
     def aircraft_id(self, icao, data):
         """Aircraft ID
@@ -92,22 +94,22 @@ class Encoder():
         data_int_list = [chars.index(x) for x in data]
         data_bin = ''.join('{0:06b}'.format(x) for x in data_int_list)
         data_hex = '{0:012X}'.format(int(data_bin, 2))
-        msg0 = dfca + icao + '20' + data_hex #"20" is the type code
+        msg0 = dfca + icao + '20' + data_hex
         crc = '{0:06X}'.format(int(util.crc(msg0 + '000000', encode=True), 2))
         return msg0 + crc
 
-    def aircraft_position(self, TC_SS_NICsb , ALT, LAT_CPR, LON_CPR, flag):
-        # b = '10001101010000000110001000011101'
-        DF = '10001' #Downformat
-        ALT = ALT #Altitude
-        T = '0' #Time
-        F = flag #CPR odd/even frame flag
-        LAT_CPR = LAT_CPR #Latitude in CPR format
-        LON_CPR = LON_CPR #Longitude in CPR format
+    def aircraft_position(self, TC_SS_NICsb, ALT, LAT_CPR, LON_CPR, flag):
+        DF = '10001'
+        ALT = ALT
+        T = '0'
+        F = flag
+        LAT_CPR = LAT_CPR
+        LON_CPR = LON_CPR
         x = (DF, TC_SS_NICsb, ALT, T, F, LAT_CPR, LON_CPR)
         msg = ("").join(x)
         return msg
-# 52.25720
+
+
 encoder = Encoder()
 coordenadas = encoder.cpr_encode(52.25720, 3.91937)
 latitude = bin(coordenadas[0])
@@ -134,8 +136,8 @@ print(adsb_dec.airborne_position(message_position, message_position1, 1, 11))
 # print("Message data: %s " % adsb_dec.data(message_id))
 # print("Type code: %s " % adsb_dec.typecode(message_id))
 # if adsb_dec.typecode(message_id) <= 4 and adsb_dec.typecode(message_id) >= 1:
-#     print("###########################  Aircraft ID Message #############################")
+#     print("###########################  Aircraft ID Message ############")
 #     print("Aircraft callsign: %s " % adsb_dec.callsign(message_id))
 #     print("Aircraft category number: %s" % adsb_dec.category(message_id))
-# if adsb_dec.typecode(message_id) <= 18 and adsb_dec.typecode(message_id) >= 9:
-#     print("########################### Airborne Positions Message #############################")
+# if adsb_dec.typecode(message_id) <= 18 and adsb_dec.typecode(message_id)>=9:
+#     print("########################### Airborne Positions Message #########")
