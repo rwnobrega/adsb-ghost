@@ -96,30 +96,46 @@ class Encoder():
         crc = '{0:06X}'.format(int(util.crc(msg0 + '000000', encode=True), 2))
         return msg0 + crc
 
-    def aircraft_position(self, TC_SS_NICsb , ALT, LAT_CPR, LON_CPR):
-        DF = '11' #Downformat
+    def aircraft_position(self, TC_SS_NICsb , ALT, LAT_CPR, LON_CPR, flag):
+        # b = '10001101010000000110001000011101'
+        DF = '10001' #Downformat
         ALT = ALT #Altitude
         T = '0' #Time
-        F = '0' #CPR odd/even frame flag
+        F = flag #CPR odd/even frame flag
         LAT_CPR = LAT_CPR #Latitude in CPR format
         LON_CPR = LON_CPR #Longitude in CPR format
-        msg = DF + TC_SS_NICsb + ALT + T + F + LAT_CPR + LON_CPR
+        x = (DF, TC_SS_NICsb, ALT, T, F, LAT_CPR, LON_CPR)
+        msg = ("").join(x)
         return msg
-
+# 52.25720
 encoder = Encoder()
 coordenadas = encoder.cpr_encode(52.25720, 3.91937)
-print(coordenadas)
-message_position = encoder.aircraft_position('58', 'C38', '16B48', 'C8AC')
+latitude = bin(coordenadas[0])
+longitude = bin(coordenadas[1])
+latitude = latitude.split("0b")
+longitude = longitude.split("0b")
+latitude = latitude[1]
+longitude = longitude[1]
+print latitude
+print longitude
+message_position = encoder.aircraft_position('01011000', '110000111000',
+                                             latitude, longitude, '0')
+message_position1 = encoder.aircraft_position('01011000', '110000111000',
+                                              '10010000110101110',
+                                              '01100010000010010', '1')
 print('Message Position is: %s' % message_position)
+print('Message Position is: %s' % message_position1)
+print(adsb_dec.airborne_position(message_position, message_position1, 1, 11))
 
-message_id = encoder.aircraft_id('4840D6', 'TESTEFLY')
-print("Downlink format: %s " % adsb_dec.df(message_id))
-print("ICAO aircraft address: %s " % adsb_dec.icao(message_id))
-print("Message data: %s " % adsb_dec.data(message_id))
-print("Type code: %s " % adsb_dec.typecode(message_id))
-if adsb_dec.typecode(message_id) <= 4 and adsb_dec.typecode(message_id) >= 1:
-    print("###########################  Aircraft ID Message #############################")
-    print("Aircraft callsign: %s " % adsb_dec.callsign(message_id))
-    print("Aircraft category number: %s" % adsb_dec.category(message_id))
-if adsb_dec.typecode(message_id) <= 18 and adsb_dec.typecode(message_id) >= 9:
-    print("########################### Airborne Positions Message #############################")
+
+# message_id = encoder.aircraft_id('4840D6', 'TESTEFLY')
+# print("Downlink format: %s " % adsb_dec.df(message_id))
+# print("ICAO aircraft address: %s " % adsb_dec.icao(message_id))
+# print("Message data: %s " % adsb_dec.data(message_id))
+# print("Type code: %s " % adsb_dec.typecode(message_id))
+# if adsb_dec.typecode(message_id) <= 4 and adsb_dec.typecode(message_id) >= 1:
+#     print("###########################  Aircraft ID Message #############################")
+#     print("Aircraft callsign: %s " % adsb_dec.callsign(message_id))
+#     print("Aircraft category number: %s" % adsb_dec.category(message_id))
+# if adsb_dec.typecode(message_id) <= 18 and adsb_dec.typecode(message_id) >= 9:
+#     print("########################### Airborne Positions Message #############################")
