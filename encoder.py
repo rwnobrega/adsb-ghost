@@ -4,16 +4,27 @@ import util
 
 latz = 15
 
-def aircraft_altitude(altitude):
-    alt = (altitude + 1000)/25
+# def aircraft_velocity(TC = '10011', ST = '001', IC = '0', RESV_A = '1', NAC = '000', S_EW, V_EW, S_NS, V_NS,
+#                      VrSrc, S_Vr, Vr, RESV_B = '00', S_Dif, Dif):
+#
+#     # TC -> 10011 (19) - Type Code
+#     # ST -> 001 (ground velocity - Subtype)
+#     # IC -> 0 (Intent change flag)
+
+
+def aircraft_altitude(altitude_new):
+    alt = (altitude_new + 1000)/25
     alt_bin = bin(alt)
     altitude = alt_bin.split("0b")
     altitude = altitude[1]
-    altitude_1 = altitude[0:7] + '1' + altitude[8:12]
-    if len(altitude) is not 12:
-        while len(altitude) < 12:
+    if len(altitude) is not 11:
+        while len(altitude) < 11:
             altitude = '0' + altitude
-    return altitude
+    altitude_1 = altitude[0:7] + '1' + altitude[7:12]
+    if len(altitude_1) is not 12:
+        print "U cant send this message, man"
+        return '000000000000'
+    return altitude_1
 
 def aircraft_id(icao, data):
     """Aircraft ID
