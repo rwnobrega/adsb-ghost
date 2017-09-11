@@ -88,6 +88,7 @@ while True:
         message = encoder.aircraft_id(icao, 'Flying_Dutch')
     if command == 'alt':
         alt = raw_input("What is the new alt? \n")
+        print 'AQUI 1'
         alts = encoder.aircraft_altitude(int(alt))
         travel(city, alts)
     if command == 'exit':
