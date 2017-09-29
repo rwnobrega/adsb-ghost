@@ -13,6 +13,7 @@ latz = 15
 
 
 def aircraft_altitude(altitude_new):
+    #TODO Ver arredondamento
     alt = (altitude_new + 1000)/25
     alt_bin = bin(alt)
     altitude = alt_bin.split("0b")
