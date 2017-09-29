@@ -8,7 +8,7 @@ class blk(gr.interp_block):
         gr.interp_block.__init__(
             self,
             name='PPM mapper',
-            in_sig=[np.int32],
+            in_sig=[np.int8],
             out_sig=[np.int32],
             interp=2
         )
