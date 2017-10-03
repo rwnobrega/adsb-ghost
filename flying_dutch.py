@@ -102,3 +102,11 @@ gmap = gmplot.GoogleMapPlotter(-27.5973002, -48.5496098, 10)
 gmap.plot(lat_list_plot, lon_list_plot, 'cornflowerblue', edge_width=5)
 gmap.draw("trajetoria.html")
 plan.close()
+b = open('flight_plan_binary.txt', "w+")
+c = b.readlines()
+chunks = [c[i:i+8] for i in range(0, len(c), 8)]
+list_int = [int(x, 2) for x in chunks]
+ba = bytearray(list_int)
+f = open('final_plan.bin', 'wb')
+f.write(ba)
+f.close()
