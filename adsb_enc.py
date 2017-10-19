@@ -116,42 +116,43 @@ class Encoder():
         return msg + crc
 
 
-def get_lat(coord):
+def get_lat(coordenadas):
     latitude_bin = bin(coordenadas[0])
     latitude = latitude_bin.split("0b")
     latitude = latitude[1]
     if len(latitude) is not 17:
-        print "WRONG : LATITUDE"
+        print "Doing bit stuffing..."
         while len(latitude) < 17:
             latitude = '0' + latitude
     return latitude
 
-def get_long(coord):
+def get_long(coordenadas):
     longitude_bin = bin(coordenadas[1])
     longitude = longitude_bin.split("0b")
     longitude = longitude[1]
     if len(longitude) is not 17:
-        print "WRONG: LONGITUDE"
+        print "Doing bit stuffing..."
         while len(longitude) < 17:
             longitude= '0' + longitude
     return longitude
 
-encoder = Encoder()
-coordenadas = encoder.cpr_encode(52.25720, 4.91937)
-# coordenadas = encoder.cpr_encode(45.5, 5.67)
-latitude = get_lat(coordenadas)
-longitude = get_long(coordenadas)
-
-
-message_position = encoder.aircraft_position('01011000', '110000111000',
-                                             latitude, longitude, '0')
-message_position1 = encoder.aircraft_position('01011000', '110000111000',
-                                              '10010000110101110',
-                                              '01100010000010010', '1')
-print('Message Position is: %s' % message_position)
-print(adsb_dec.position(message_position, message_position, 1, 11))
-print(adsb_dec.position(message_position, message_position1, 1, 11))
-
+# encoder = Encoder()
+# coordenadas = encoder.cpr_encode(52.25720, 4.91937)
+# # coordenadas = encoder.cpr_encode(45.5, 5.67)
+# print coordenadas
+# latitude = get_lat(coordenadas)
+# longitude = get_long(coordenadas)
+#
+#
+# message_position = encoder.aircraft_position('01011000', '110000111000',
+#                                              latitude, longitude, '0')
+# message_position1 = encoder.aircraft_position('01011000', '110000111000',
+#                                               '10010000110101110',
+#                                               '01100010000010010', '1')
+# print('Message Position is: %s' % message_position)
+# print(adsb_dec.position(message_position, message_position, 1, 2))
+# print(adsb_dec.position(message_position, message_position1, 3, 4))
+#
 
 # message_id = encoder.aircraft_id('4840D6', 'TESTEFLY')
 # print("Downlink format: %s " % adsb_dec.df(message_id))

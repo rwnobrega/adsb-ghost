@@ -6,9 +6,10 @@ import gmplot
 import util
 from termcolor import colored
 from geopy.geocoders import Nominatim
+import time
 
 
-MOVEMENT_CONST = 0.0001
+MOVEMENT_CONST = 0.05
 icao = "40621D"
 lat_atual = -27.670118
 lon_atual = -48.5481544
@@ -19,6 +20,8 @@ plan = open('flight_plan_binary.txt', 'w+')
 lock = True
 lat_list_plot = []
 lon_list_plot = []
+lat_list_dec_plot = []
+lon_list_dec_plot = []
 
 def travel(destination, alt, latitude=None, longitude=None):
     global city
@@ -26,6 +29,10 @@ def travel(destination, alt, latitude=None, longitude=None):
     global plan
     global lat_list_plot
     global lon_list_plot
+    global lat_atual
+    global lon_atual
+    global lat_list_dec_plot
+    global lon_list_dec_plot
 
     if (latitude == None and longitude == None):
         location = geolocator.geocode(destination, timeout=10)
@@ -37,21 +44,138 @@ def travel(destination, alt, latitude=None, longitude=None):
 
     lat_list = []
     lon_list = []
+    # lat_list_dec_plot = []
+    # lon_list_dec_plot = []
+    lat_list_plot = []
+    lon_list_plot = []
 
     lat_list.append(position_init["latitude"])
     lon_list.append(position_init["longitude"])
-    lat_list.append(position_init["latitude"] + MOVEMENT_CONST)
-    lon_list.append(position_init["longitude"] + MOVEMENT_CONST)
+    lat_list.append(position_init["latitude"] + 0.0001)
+    lon_list.append(position_init["longitude"] + 0.0001)
+
+    lat_list_plot.append(position_init["latitude"])
+    lon_list_plot.append(position_init["longitude"])
+    lat_list_plot.append(position_init["latitude"] + 0.0001)
+    lon_list_plot.append(position_init["longitude"] + 0.0001)
+
+    i = 2
+    lock_lat = False
+    lock_lon = False
+    lock_finish = False
+
+    print "PRINTANDO POSITION_INIT LATITUDE"
+    print position_init["latitude"]
+    print "PRINTANDO POSITION_END LATITUDE"
+    print position_end["latitude"]
+    print "#############################"
+    print "PRINTANDO POSITION_INIT LONGITUDE"
+    print position_init["longitude"]
+    print "PRINTANDO POSITION_END LONGITUDE"
+    print position_end["longitude"]
+
+    if(position_init["latitude"] < position_end["latitude"]) and (position_init["longitude"] < position_end["longitude"] and lock_finish == False):
+        print "LOOP 1"
+        lock_finish = True
+        while True:
+            if lat_list[i-1] < position_end["latitude"]:
+                lat_list.append(lat_list[i-1])
+                lat_list.append(lat_list[i] + MOVEMENT_CONST)
+            else:
+                lat_list.append(lat_list[i-2])
+                lat_list.append(lat_list[i-1])
+                lock_lat = True
+
+            if lon_list[i-1] < position_end["longitude"]:
+                lon_list.append(lon_list[i-1])
+                lon_list.append(lon_list[i] + MOVEMENT_CONST)
+            else:
+                lon_list.append(lon_list[i-2])
+                lon_list.append(lon_list[i-1])
+                lock_lon = True
+
+            if (lock_lon and lock_lat):
+                break
+            i += 2
+    if((position_init["latitude"] > position_end["latitude"]) and (position_init["longitude"] < position_end["longitude"]) and (lock_finish == False)):
+        print "LOOP 2"
+        lock_finish = True
+        while True:
+            if lat_list[i-1] > position_end["latitude"]:
+                lat_list.append(lat_list[i-1])
+                lat_list.append(lat_list[i] - MOVEMENT_CONST)
+            else:
+                lat_list.append(lat_list[i-2])
+                lat_list.append(lat_list[i-1])
+                lock_lat = True
+
+            if lon_list[i-1] < position_end["longitude"]:
+                lon_list.append(lon_list[i-1])
+                lon_list.append(lon_list[i] + MOVEMENT_CONST)
+            else:
+                lon_list.append(lon_list[i-2])
+                lon_list.append(lon_list[i-1])
+                lock_lon = True
+
+            if (lock_lon and lock_lat):
+                break
+            i += 2
+    if((position_init["latitude"] < position_end["latitude"]) and (position_init["longitude"] > position_end["longitude"]) and (lock_finish == False)):
+        print "LOOP 3"
+        lock_finish = True
+        while True:
+            if lat_list[i-1] < position_end["latitude"]:
+                lat_list.append(lat_list[i-1])
+                lat_list.append(lat_list[i] + MOVEMENT_CONST)
+            else:
+                lat_list.append(lat_list[i-2])
+                lat_list.append(lat_list[i-1])
+                lock_lat = True
+
+            if lon_list[i-1] > position_end["longitude"]:
+                lon_list.append(lon_list[i-1])
+                lon_list.append(lon_list[i] - MOVEMENT_CONST)
+            else:
+                lon_list.append(lon_list[i-2])
+                lon_list.append(lon_list[i-1])
+                lock_lon = True
+            if (lock_lon == True and lock_lat == True):
+                break
+            i += 2
+    if((position_init["latitude"] > position_end["latitude"]) and (position_init["longitude"] > position_end["longitude"]) and (lock_finish == False)):
+        print "LOOP 4"
+        lock_finish = True
+        while True:
+            if lat_list[i-1] > position_end["latitude"]:
+                lat_list.append(lat_list[i-1])
+                lat_list.append(lat_list[i] - MOVEMENT_CONST)
+            else:
+                lat_list.append(lat_list[i-2])
+                lat_list.append(lat_list[i-1])
+                lock_lat = True
+
+            if lon_list[i-1] > position_end["longitude"]:
+                lon_list.append(lon_list[i-1])
+                lon_list.append(lon_list[i] - MOVEMENT_CONST)
+            else:
+                lon_list.append(lon_list[i-2])
+                lon_list.append(lon_list[i-1])
+                lock_lon = True
+
+            if (lock_lon and lock_lat):
+                break
+            i += 2
+        # lat_list_plot.append(lat_list[i-1])
+        # lon_list_plot.append(lon_list[i-1])
+        # lat_list_plot.append(lat_list[i-1] + MOVEMENT_CONST)
+        # lon_list_plot.append(lon_list[i-1] + MOVEMENT_CONST)
+        lat_list_plot = lat_list
+        lon_list_plot = lon_list
 
     lat_list.append(position_end["latitude"])
     lon_list.append(position_end["longitude"])
     lat_list.append(position_end["latitude"] + MOVEMENT_CONST)
     lon_list.append(position_end["longitude"] + MOVEMENT_CONST)
-
-    lat_list_plot.append(position_init["latitude"])
-    lon_list_plot.append(position_init["longitude"])
-    lat_list_plot.append(position_init["latitude"] + MOVEMENT_CONST)
-    lon_list_plot.append(position_init["longitude"] + MOVEMENT_CONST)
 
     lat_list_plot.append(position_end["latitude"])
     lon_list_plot.append(position_end["longitude"])
@@ -59,6 +183,10 @@ def travel(destination, alt, latitude=None, longitude=None):
     lon_list_plot.append(position_end["longitude"] + MOVEMENT_CONST)
 
     i = 0
+    # print len(lat_list)
+    # print len(lon_list)
+    # print lat_list
+    # print lon_list
     while i < len(lat_list):
         coordenadas = encoder.cpr_encode(lat_list[i], lon_list[i], 0, 1)
         latitude = encoder.get_lat(coordenadas)
@@ -72,15 +200,25 @@ def travel(destination, alt, latitude=None, longitude=None):
                                                       longitude, '1', icao)
         plan.write(util.hex2bin(message_position))
         plan.write(util.hex2bin(message_position1))
-        coordenadas_dec = adsb_dec.position(message_position,
-                                            message_position1, 1, 11)
+        # print colored(message_position1, "blue")
+        # print colored(message_position1, "red")
+        x = adsb_dec.position(message_position, message_position1, 0, 1)
         lat_atual = lat_list[i]
         lon_atual = lon_list[i]
         i = i + 2
-    print "LATITUDE ATUAL"
-    print lat_atual
-    print "LONGITUDE ATUAL"
-    print lon_atual
+        # try:
+        # print "MENSAGENS"
+        # print message_position
+        # print message_position1
+        # print lat_list[i-2]
+        # print lon_list[i-2]
+        if x != None:
+            # print str(x[0]) + ',' + str(x[1])
+            lat_list_dec_plot.append(x[0])
+            lon_list_dec_plot.append(x[1])
+        else:
+            pass
+        # except:
 
 list_command = []
 list_value = []
@@ -111,14 +249,18 @@ while lock == True:
         if command == 'alt':
             altura = str(dicts_from_file[i].get('altura'))
             altura = altura[1:len(altura)-1]
-            print altura
             alts = encoder.aircraft_altitude(int(altura))
-            travel(city, alts)
+            travel(None, alts)
 
-gmap = gmplot.GoogleMapPlotter(-27.5973002, -48.5496098, 10)
-gmap.plot(lat_list_plot, lon_list_plot, 'cornflowerblue', edge_width=10)
-gmap.draw("trajetoria.html")
+# gmap = gmplot.GoogleMapPlotter(-27.5973002, -48.5496098, 10)
+# gmap.plot(lat_list_plot, lon_list_plot,'#3B0B39', 'cornflowerblue', edge_width=10)
+# gmap.draw("trajetoria.html")
 plan.close()
+
+gmap1 = gmplot.GoogleMapPlotter(-27.5973002, -48.5496098, 10)
+# gmap1.plot(lat_list_dec_plot, lon_list_dec_plot,'#3B0B39', 'cornflowerblue', edge_width=10)
+gmap1.scatter(lat_list_dec_plot, lon_list_dec_plot, '#3B0B39', size=150, marker=False)
+gmap1.draw("trajetoria_decodificada.html")
 
 b = open('flight_plan_binary.txt', "r")
 c = b.readlines()

@@ -1,3 +1,6 @@
 {'command': ['travel'], 'latitude': [-27.6107649], 'longitude': [-48.6256517]}
 {'command': ['travel'], 'latitude': [-28.4747702], 'longitude': [-48.7991519]}
-{'command': ['travel'], 'latitude': [52.519951], 'longitude': [13.4025173]}
+{'command': ['travel'], 'latitude': [-15.000], 'longitude': [46.000]}
+{'command': ['travel'], 'latitude': [27.000], 'longitude': [-27.000]}
+{'command': ['travel'], 'latitude': [-32.000], 'longitude': [-17.000]}
+{'command': ['travel'], 'latitude': [21.000], 'longitude': [11.000]}
