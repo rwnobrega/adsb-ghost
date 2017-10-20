@@ -9,7 +9,7 @@ from geopy.geocoders import Nominatim
 import time
 
 
-MOVEMENT_CONST = 0.05
+MOVEMENT_CONST = 0.001
 icao = "40621D"
 lat_atual = -27.670118
 lon_atual = -48.5481544
@@ -63,16 +63,6 @@ def travel(destination, alt, latitude=None, longitude=None):
     lock_lat = False
     lock_lon = False
     lock_finish = False
-
-    print "PRINTANDO POSITION_INIT LATITUDE"
-    print position_init["latitude"]
-    print "PRINTANDO POSITION_END LATITUDE"
-    print position_end["latitude"]
-    print "#############################"
-    print "PRINTANDO POSITION_INIT LONGITUDE"
-    print position_init["longitude"]
-    print "PRINTANDO POSITION_END LONGITUDE"
-    print position_end["longitude"]
 
     if(position_init["latitude"] < position_end["latitude"]) and (position_init["longitude"] < position_end["longitude"] and lock_finish == False):
         print "LOOP 1"
@@ -245,7 +235,10 @@ while lock == True:
             longitude = longitude[1:len(longitude)-2]
             travel(None, alts, float(latitude), float(longitude))
         if command == 'name':
-            message = encoder.aircraft_id(icao, 'Flying_Dutch')
+            name = str(dicts_from_file[i].get('name'))
+            name = name[2:len(name)-2]
+            message = encoder.aircraft_id(icao, name)
+            plan.write(util.hex2bin(message))
         if command == 'alt':
             altura = str(dicts_from_file[i].get('altura'))
             altura = altura[1:len(altura)-1]
