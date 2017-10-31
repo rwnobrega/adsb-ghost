@@ -2,7 +2,6 @@
 import json
 import encoder
 import adsb_dec
-import gmplot
 import util
 from geopy.geocoders import Nominatim
 import numpy
