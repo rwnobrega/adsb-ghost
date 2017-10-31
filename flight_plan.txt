@@ -1,4 +1,3 @@
 {'command': ['name'], 'name': ['FLYDUTCH'] }
-{'command': ['travel'], 'latitude': [-27.6107649], 'longitude': [-48.6256517]}
-{'command': ['travel'], 'latitude': [-28.4747702], 'longitude': [-48.7991519]}
-{'command': ['travel'], 'latitude': [-27.6107649], 'longitude': [-48.6256517]}
+{'command': ['travel'], 'latitude': [-27.6107649], 'longitude': [-48.6256517], 'npoints': [200]}
+{'command': ['travel'], 'latitude': [-35.656505], 'longitude': [-48.678531], 'npoints': [200]}
