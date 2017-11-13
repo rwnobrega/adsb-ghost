@@ -65,13 +65,30 @@ with open('flight_plan.txt','r') as inf:
 while lock == True:
 
     for i in range(len(dicts_from_file)):
-        position_init = {"latitude" : lat_atual,
-                         "longitude": lon_atual}
 
         command = str(dicts_from_file[i].get('command'))
         command = command[2:len(command)-2]
         if i == (len(dicts_from_file) - 1):
             lock = False
+
+        if command == 'set':
+            #Define initial position
+            lat_atual = str(dicts_from_file[i].get('latitude'))
+            lat_atual = lat_atual[1:len(lat_atual)-2]
+            lon_atual = str(dicts_from_file[i].get('longitude'))
+            lon_atual = lon_atual[1:len(lon_atual)-2]
+            position_init = {"latitude" : float(lat_atual),
+                             "longitude": float(lon_atual)}
+            #define initial altitude
+            altitude = str(dicts_from_file[i].get('altitude'))
+            altitude = altitude[1:len(altitude)-2]
+            alts = encoder.aircraft_altitude(int(altitude))
+            travel(None, alts)
+            #define name
+            name = str(dicts_from_file[i].get('name'))
+            name = name[2:len(name)-2]
+            message = encoder.aircraft_id(icao, name)
+            plan.write(util.hex2bin(message))
 
         if command == 'travel':
             latitude = str(dicts_from_file[i].get('latitude'))
