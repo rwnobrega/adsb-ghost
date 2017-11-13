@@ -81,7 +81,7 @@ while lock == True:
                              "longitude": float(lon_atual)}
             #define initial altitude
             altitude = str(dicts_from_file[i].get('altitude'))
-            altitude = altitude[1:len(altitude)-2]
+            altitude = altitude[1:len(altitude)-1]
             alts = encoder.aircraft_altitude(int(altitude))
             travel(None, alts)
             #define name
