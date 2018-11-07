@@ -1,5 +1,4 @@
 import math, time
-import adsb_dec
 import util
 
 latz = 15
