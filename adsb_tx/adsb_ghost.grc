@@ -354,7 +354,7 @@
     </param>
     <param>
       <key>_enabled</key>
-      <value>1</value>
+      <value>0</value>
     </param>
     <param>
       <key>freq</key>
@@ -398,7 +398,7 @@
     </param>
   </block>
   <block>
-    <key>blocks_complex_to_float</key>
+    <key>blocks_complex_to_mag</key>
     <param>
       <key>alias</key>
       <value></value>
@@ -417,7 +417,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(696, 584)</value>
+      <value>(752, 560)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -425,7 +425,7 @@
     </param>
     <param>
       <key>id</key>
-      <value>blocks_complex_to_float_0</value>
+      <value>blocks_complex_to_mag_0</value>
     </param>
     <param>
       <key>maxoutbuf</key>
@@ -546,7 +546,7 @@
     </param>
     <param>
       <key>_enabled</key>
-      <value>1</value>
+      <value>0</value>
     </param>
     <param>
       <key>_coordinate</key>
@@ -919,7 +919,7 @@ class blk(gr.basic_block):  # other base classes are basic_block, decim_block, i
     </param>
     <param>
       <key>_io_cache</key>
-      <value>('Detector', 'blk', [], [('0', 'float', 1)], [('0', 'float', 1)], 'Embedded Python Block example - a simple multiply const', [])</value>
+      <value>('Decoder', 'blk', [], [('0', 'float', 1)], [('0', 'float', 1)], 'Embedded Python Block example - a simple multiply const', [])</value>
     </param>
     <param>
       <key>_source_code</key>
@@ -942,7 +942,7 @@ class blk(gr.sync_block):  # other base classes are basic_block, decim_block, in
         """arguments to this function show up as parameters in GRC"""
         gr.sync_block.__init__(
             self,
-            name='Detector',   # will show up in GRC
+            name='Decoder',   # will show up in GRC
             in_sig=[np.float32],
             out_sig=[np.float32]
         )
@@ -951,10 +951,9 @@ class blk(gr.sync_block):  # other base classes are basic_block, decim_block, in
 
     def work(self, input_items, output_items):
         """example: multiply with constant"""
-        if input_items[0][0] == 0:
-            output_items[0][0] = 1
-        else:
-            output_items[0][0] = 2
+        print(bin(input_items[0][0]))
+        print("\n")
+        output_items[0][:] = input_items[0]
         return len(output_items[0])
 </value>
     </param>
@@ -968,7 +967,7 @@ class blk(gr.sync_block):  # other base classes are basic_block, decim_block, in
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(680, 720)</value>
+      <value>(856, 728)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -976,7 +975,7 @@ class blk(gr.sync_block):  # other base classes are basic_block, decim_block, in
     </param>
     <param>
       <key>id</key>
-      <value>epy_block_1</value>
+      <value>epy_block_2</value>
     </param>
   </block>
   <block>
@@ -1026,7 +1025,7 @@ class blk(gr.sync_block):  # other base classes are basic_block, decim_block, in
     </param>
     <param>
       <key>_enabled</key>
-      <value>True</value>
+      <value>1</value>
     </param>
     <param>
       <key>_coordinate</key>
@@ -2167,7 +2166,7 @@ class blk(gr.interp_block):
     </param>
     <param>
       <key>_enabled</key>
-      <value>True</value>
+      <value>1</value>
     </param>
     <param>
       <key>_coordinate</key>
@@ -2443,7 +2442,7 @@ class blk(gr.interp_block):
     </param>
     <param>
       <key>size</key>
-      <value>1024</value>
+      <value>2048</value>
     </param>
     <param>
       <key>srate</key>
@@ -2483,7 +2482,7 @@ class blk(gr.interp_block):
     </param>
     <param>
       <key>update_time</key>
-      <value>0.1</value>
+      <value>0.12048</value>
     </param>
     <param>
       <key>ylabel</key>
@@ -2534,11 +2533,11 @@ class blk(gr.interp_block):
     </param>
     <param>
       <key>_enabled</key>
-      <value>True</value>
+      <value>1</value>
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(928, 676)</value>
+      <value>(1040, 668)</value>
     </param>
     <param>
       <key>gui_hint</key>
@@ -2810,7 +2809,7 @@ class blk(gr.interp_block):
     </param>
     <param>
       <key>size</key>
-      <value>1024</value>
+      <value>2048</value>
     </param>
     <param>
       <key>srate</key>
@@ -2936,8 +2935,14 @@ class blk(gr.interp_block):
     <sink_key>0</sink_key>
   </connection>
   <connection>
-    <source_block_id>blocks_complex_to_float_0</source_block_id>
-    <sink_block_id>epy_block_1</sink_block_id>
+    <source_block_id>blocks_complex_to_mag_0</source_block_id>
+    <sink_block_id>epy_block_2</sink_block_id>
+    <source_key>0</source_key>
+    <sink_key>0</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>blocks_float_to_complex_0</source_block_id>
+    <sink_block_id>blocks_complex_to_mag_0</sink_block_id>
     <source_key>0</source_key>
     <sink_key>0</sink_key>
   </connection>
@@ -2950,12 +2955,6 @@ class blk(gr.interp_block):
   <connection>
     <source_block_id>blocks_int_to_float_0</source_block_id>
     <sink_block_id>virtual_sink_0</sink_block_id>
-    <source_key>0</source_key>
-    <sink_key>0</sink_key>
-  </connection>
-  <connection>
-    <source_block_id>blocks_multiply_xx_0</source_block_id>
-    <sink_block_id>blocks_complex_to_float_0</sink_block_id>
     <source_key>0</source_key>
     <sink_key>0</sink_key>
   </connection>
@@ -2990,7 +2989,7 @@ class blk(gr.interp_block):
     <sink_key>0</sink_key>
   </connection>
   <connection>
-    <source_block_id>epy_block_1</source_block_id>
+    <source_block_id>epy_block_2</source_block_id>
     <sink_block_id>qtgui_time_sink_x_0_0</sink_block_id>
     <source_key>0</source_key>
     <sink_key>0</sink_key>
