@@ -13,21 +13,26 @@ from gnuradio import gr
 class blk(gr.sync_block):  # other base classes are basic_block, decim_block, interp_block
     """Embedded Python Block example - a simple multiply const"""
 
-    def __init__(self):  # only default arguments here
+    def __init__(self, example_param=1.0):  # only default arguments here
         """arguments to this function show up as parameters in GRC"""
         gr.sync_block.__init__(
             self,
-            name='Detector',   # will show up in GRC
-            in_sig=[np.float32],
-            out_sig=[np.float32]
+            name='ADSB DECODER',   # will show up in GRC
+            in_sig=[np.int8],
+            out_sig=[]
         )
         # if an attribute with the same name as a parameter is found,
         # a callback is registered (properties work, too).
+        self.example_param = example_param
+
+
+    def forecast(self, noutput_items, ninput_items_required):
+        ninput_items_required = 14
 
     def work(self, input_items, output_items):
         """example: multiply with constant"""
-        if input_items[0][0] == 0:
-            output_items[0][0] = 1
-        else:
-            output_items[0][0] = 2
-        return len(output_items[0])
+        # print((input_items[0][0:112]))
+        # print(len(input_items[0][0:112]))
+
+        self.consume(0, 8)
+        return 0

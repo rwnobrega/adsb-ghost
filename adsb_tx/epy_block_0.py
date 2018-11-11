@@ -110,6 +110,24 @@ class blk(gr.basic_block):  # other base classes are basic_block, decim_block, i
             c = b.readlines()
             c = str(c)
             c = c[2:(len(c)-2)]
+            print(c[0:112])
+            print(len(c[0:111]))
+
+            print(c[112:224])
+            print(len(c[112:224]))
+
+            print(c[112:112])
+            print(len(c[0:111]))
+
+            print(c[112:112])
+            print(c[112:112])
+            print(c[112:112])
+            print(c[112:112])
+            print(c[112:112])
+            print(c[112:112])
+            print(c[112:112])
+            print(c[112:112])
+
             chunks = [c[i:i+8] for i in range(0, len(c), 8)]
             list_int = [int(x, 2) for x in chunks]
             self.int_to_return = list_int
