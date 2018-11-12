@@ -37,10 +37,16 @@ class blk(gr.basic_block):  # other base classes are basic_block, decim_block, i
         lat_list = []
         lon_list = []
 
+
         lat_list.append(current_latitude)
         lon_list.append(current_longitude)
+
         lat_list.append(current_latitude + MOVEMENT_CONST)
         lon_list.append(current_longitude + MOVEMENT_CONST)
+
+
+        lat_list = np.linspace(current_latitude, coordinates["latitude"], 1000).tolist()
+        lon_list = np.linspace(current_longitude, coordinates["longitude"], 1000).tolist()
 
         lat_list.append(coordinates['latitude'])
         lon_list.append(coordinates["longitude"])
@@ -75,7 +81,7 @@ class blk(gr.basic_block):  # other base classes are basic_block, decim_block, i
             lock = True
             current_latitude = -27.608339
             current_longitude = -48.633269
-            flight_plan = open("flight_plan.txt","r")
+            flight_plan = open("/home/llucindov/dev/telecom/adsb-ghost/flight_plan.txt","r")
             a = flight_plan.readlines()
             list_command = []
             list_value = []
