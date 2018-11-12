@@ -44,7 +44,8 @@ class blk(gr.basic_block):
             samples = ''
 
             sample_counter = 0
-            for index in range(n_sample/2, len(input_items[0]) - 1, n_sample):
+            # for index in range(n_sample/2, len(input_items[0]) - 1, n_sample):
+            for index in range(0, len(input_items[0]) - 1):
 
                 samples = samples + str((input_items[0][index]))
                 sample_counter = sample_counter + 1
