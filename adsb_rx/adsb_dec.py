@@ -207,7 +207,7 @@ def airborne_position(msg0, msg1, t0, t1):
     lat_even = float(air_d_lat_even * (j % 60 + cprlat_even))
     lat_odd = float(air_d_lat_odd * (j % 59 + cprlat_odd))
 
-    
+
 
 
     if lat_even >= 270:
