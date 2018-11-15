@@ -30,7 +30,7 @@ class blk(gr.basic_block):  # other base classes are basic_block, decim_block, i
         # if an attribute with the same name as a parameter is found,
         # a callback is registered (properties work, too).
 
-	self.int_to_return = []
+        self.int_to_return = []
 
     def travel(self, coordinates, alt, icao, current_latitude, current_longitude, plan = None):
 

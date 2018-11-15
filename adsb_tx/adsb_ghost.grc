@@ -307,11 +307,11 @@
     </param>
     <param>
       <key>_enabled</key>
-      <value>True</value>
+      <value>1</value>
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(576, 284)</value>
+      <value>(552, 292)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -398,7 +398,7 @@
     </param>
   </block>
   <block>
-    <key>blocks_complex_to_real</key>
+    <key>blocks_complex_to_float</key>
     <param>
       <key>alias</key>
       <value></value>
@@ -417,7 +417,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(392, 776)</value>
+      <value>(680, 616)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -425,7 +425,50 @@
     </param>
     <param>
       <key>id</key>
-      <value>blocks_complex_to_real_0</value>
+      <value>blocks_complex_to_float_0</value>
+    </param>
+    <param>
+      <key>maxoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>minoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>vlen</key>
+      <value>1</value>
+    </param>
+  </block>
+  <block>
+    <key>blocks_complex_to_mag</key>
+    <param>
+      <key>alias</key>
+      <value></value>
+    </param>
+    <param>
+      <key>comment</key>
+      <value></value>
+    </param>
+    <param>
+      <key>affinity</key>
+      <value></value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(256, 872)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>id</key>
+      <value>blocks_complex_to_mag_0</value>
     </param>
     <param>
       <key>maxoutbuf</key>
@@ -456,7 +499,7 @@
     </param>
     <param>
       <key>_enabled</key>
-      <value>True</value>
+      <value>1</value>
     </param>
     <param>
       <key>_coordinate</key>
@@ -503,7 +546,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(912, 532)</value>
+      <value>(992, 588)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -546,7 +589,7 @@
     </param>
     <param>
       <key>_enabled</key>
-      <value>True</value>
+      <value>1</value>
     </param>
     <param>
       <key>_coordinate</key>
@@ -652,7 +695,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(1192, 536)</value>
+      <value>(1136, 472)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -665,6 +708,53 @@
     <param>
       <key>type</key>
       <value>byte</value>
+    </param>
+    <param>
+      <key>num_inputs</key>
+      <value>1</value>
+    </param>
+    <param>
+      <key>vlen</key>
+      <value>1</value>
+    </param>
+  </block>
+  <block>
+    <key>blocks_null_sink</key>
+    <param>
+      <key>alias</key>
+      <value></value>
+    </param>
+    <param>
+      <key>bus_conns</key>
+      <value>[[0,],]</value>
+    </param>
+    <param>
+      <key>comment</key>
+      <value></value>
+    </param>
+    <param>
+      <key>affinity</key>
+      <value></value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(1160, 872)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>id</key>
+      <value>blocks_null_sink_0_0</value>
+    </param>
+    <param>
+      <key>type</key>
+      <value>float</value>
     </param>
     <param>
       <key>num_inputs</key>
@@ -766,7 +856,7 @@
     </param>
     <param>
       <key>lengths</key>
-      <value>16, 2*112, 100000</value>
+      <value>16, 2*112, 20000</value>
     </param>
     <param>
       <key>maxoutbuf</key>
@@ -805,7 +895,7 @@
     </param>
     <param>
       <key>_enabled</key>
-      <value>True</value>
+      <value>1</value>
     </param>
     <param>
       <key>_coordinate</key>
@@ -892,7 +982,7 @@ class blk(gr.basic_block):  # other base classes are basic_block, decim_block, i
         # if an attribute with the same name as a parameter is found,
         # a callback is registered (properties work, too).
 
-	self.int_to_return = []
+        self.int_to_return = []
 
     def travel(self, coordinates, alt, icao, current_latitude, current_longitude, plan = None):
 
@@ -997,7 +1087,7 @@ class blk(gr.basic_block):  # other base classes are basic_block, decim_block, i
     </param>
     <param>
       <key>_enabled</key>
-      <value>True</value>
+      <value>1</value>
     </param>
     <param>
       <key>_coordinate</key>
@@ -1010,6 +1100,341 @@ class blk(gr.basic_block):  # other base classes are basic_block, decim_block, i
     <param>
       <key>id</key>
       <value>epy_block_0</value>
+    </param>
+  </block>
+  <block>
+    <key>epy_block</key>
+    <param>
+      <key>access_code</key>
+      <value>'111111000000111111000000000000000000000000111111000000111111000000000000000000000000000000000000'</value>
+    </param>
+    <param>
+      <key>alias</key>
+      <value></value>
+    </param>
+    <param>
+      <key>_io_cache</key>
+      <value>('My Correlator Block', 'blk', [('access_code', 'None'), ('payload_length', '100'), ('threshold', '0')], [('0', 'float', 1)], [('0', 'float', 1)], 'arguments to this function show up as parameters in GRC', ['access_code', 'payload_length', 'threshold'])</value>
+    </param>
+    <param>
+      <key>_source_code</key>
+      <value>"""
+Embedded Python Blocks:
+Each time this file is saved, GRC will instantiate the first class it finds
+to get ports and parameters of your block. The arguments to __init__  will
+be the parameters. All of them are required to have default values!
+"""
+
+import numpy as np
+from gnuradio import gr
+import adsb_dec
+
+
+
+class blk(gr.basic_block):  # other base classes are basic_block, decim_block, interp_block
+    def __init__(self, access_code=None, payload_length=100, threshold=0):  # only default arguments here
+        """arguments to this function show up as parameters in GRC"""
+        gr.basic_block.__init__(
+            self,
+            name='My Correlator Block',   # will show up in GRC
+            in_sig=[np.float32],
+            out_sig=[np.float32]
+        )
+        # if an attribute with the same name as a parameter is found,
+        # a callback is registered (properties work, too).
+
+        self.category = ''
+        self.callsign = ''
+        self.position_message = ''
+        self.position = ''
+        self.access_code = access_code
+        self.payload_length = payload_length
+        self.threshold = threshold
+        self.mode = 'find'
+
+        self.set_min_output_buffer(2**16)
+
+
+    def general_work(self, input_items, output_items):
+        if self.mode == 'output':
+            return self.general_work_output(input_items, output_items)
+        elif self.mode == 'find':
+            return self.general_work_find(input_items, output_items)
+
+    def general_work_output(self, input_items, output_items):
+        L_in = len(input_items[0])
+        L_out = len(output_items[0])
+        L_payload = self.payload_length
+
+        if L_in &lt; L_payload or L_out &lt; L_payload:
+            return 0
+
+        output_items[0][:L_payload] = input_items[0][:L_payload]
+        self.consume(0, L_payload)
+
+        n_sample = 6
+        samples = ''
+        sample_counter = 0
+        decoded_message = ''
+
+        for index in range(n_sample/2, len(input_items[0]), n_sample):
+            if input_items[0][index] &gt; 0.5:
+                samples = samples + '1'
+            else:
+                samples = samples + '0'
+
+        for index in range(0, 223, 2):
+            if samples[index] == '0' and samples[index + 1] == '1':
+                decoded_message = decoded_message + '0'
+            else:
+                decoded_message = decoded_message + '1'
+
+        # print("DECODED_MESSAGE:    ", decoded_message)
+
+
+        decoded_message_hex = hex(int(decoded_message, 2))
+        decoded_message_hex = decoded_message_hex[2:-1]
+
+        type_code = adsb_dec.typecode(decoded_message_hex)
+
+        if type_code &lt; 1 or type_code &gt; 4:
+            pass
+        else:
+            self.category = adsb_dec.category(decoded_message_hex)
+            self.callsign = adsb_dec.callsign(decoded_message_hex)
+
+        if (9 &lt;= type_code &lt;= 18 and 9 &lt;= type_code &lt;= 18):
+            if self.position_message:
+                self.position = adsb_dec.airborne_position(self.position_message, decoded_message_hex, 1, 2)
+                self.position_message = ''
+            else:
+                self.position_message = decoded_message_hex
+        else:
+            pass
+
+        print("CATEGORY: " + str(self.category) + "          CALLSIGN: " + str(self.callsign) + "          POSITION: " + str(self.position))
+
+
+        self.mode = 'find'
+
+        return L_payload
+
+        # message_1 = "1000110101000000011000100001110100100000000110001100011001000100010101010100000011001000101010001101100111010110"
+        # message_2 = "1000110101000000011000100001110101011000110000111000000110011000001011111010111000100010110101100101010111111000"
+        # message_3 = "1000110101000000011000100001110101011000110000111000010111100110101110111111001101001111011001010001000011010000"
+        # message_4 = "1000110101000000011000100001110101011000110000111000001111111001101010010111110011110100001111110000010010010111"
+        # message_5 = "1000110101000000011000100001110101011000110000111000010001001111000111011100010111001110111011011101100000100110"
+        # message_6 = "1000110101000000011000100001110101011000110000111000000110011000001011111010111000100010110101100101010111111000"
+        # message_7 = "1000110101000000011000100001110101011000110000111000010111100110101110111111001101001111011001010001000011010000"
+        # message_8 = "1000110101000000011000100001110101011000110000111000001000101111001010111010101000010111110011110001100001010011"
+        # message_9 = "1000110101000000011000100001110101011000110000111000011010011101010101011011011100011000101000110101011111110011"
+        # message_10 = "1000110101000000011000100001110101011000110000111000000110011000001011111010111000100010110101100101010111111000"
+        # message_11 = "1000110101000000011000100001110101011000110000111000010111100110101110111111001101001111011001010001000011010000"
+        # message_12 = "1000110101000000011000100001110101011000110000111000001100000011101110001010111001011011010110010101111001011011"
+        # message_13 = "1000110101000000011000100001110101011000110000111000011001101110010101101001101101001100011111010111101111100110"
+        # message_14 = "1000110101000000011000100001110101011000110000111000000110011000001011111010111000100010110101100101010111111000"
+        # message_15 = "1000110101000000011000100001110101011000110000111000010111100110101110111111001101001111011001010001000011010000"
+        # message_16 = "1000110101000000011000100001110101011000110000111000001011101010010101101111101011010100100101000111011100011010"
+        # message_17 = "1000110101000000011000100001110101011000110000111000011001010101011000101111001111011110000001001111111011010011"
+        # message_18 = "1000110101000000011000100001110101011000110000111000000110011000001011111010111000100010110101100101010111111000"
+        # message_19 = "1000110101000000011000100001110101011000110000111000010111100110101110111111001101001111011001010001000011010000"
+        # message_20 = "1000110101000000011000100001110101011000110000111000000110001101100110111011010010110011110111000100010001001101"
+        # message_21 = "1000110101000000011000100001110101011000110000111000010111011100010100111111100111000000011100101010100011000101"
+        #
+        #
+        #
+        # print("TAMANHO: ", len(decoded_message))
+        # if decoded_message.find(message_1) != -1:
+        #     print("1 PACOTE ACHADO")
+        #
+        # if decoded_message.find(message_2) != -1:
+        #     print("2 PACOTE ACHADO")
+        #
+        # if decoded_message.find(message_3) != -1:
+        #     print("3 PACOTE ACHADO")
+        #
+        # if decoded_message.find(message_4) != -1:
+        #     print("4 PACOTE ACHADO")
+        #
+        # if decoded_message.find(message_5) != -1:
+        #     print("5 PACOTE ACHADO")
+        #
+        # if decoded_message.find(message_6) != -1:
+        #     print("6 PACOTE ACHADO")
+        #
+        # if decoded_message.find(message_7) != -1:
+        #     print("7 PACOTE ACHADO")
+        #
+        # if decoded_message.find(message_8) != -1:
+        #     print("8 PACOTE ACHADO")
+        #
+        # if decoded_message.find(message_9) != -1:
+        #     print("9 PACOTE ACHADO")
+        #
+        # if decoded_message.find(message_10) != -1:
+        #     print("10 PACOTE ACHADO")
+        #
+        # if decoded_message.find(message_11) != -1:
+        #     print("11 PACOTE ACHADO")
+        #
+        # if decoded_message.find(message_12) != -1:
+        #     print("12 PACOTE ACHADO")
+        #
+        # if decoded_message.find(message_13) != -1:
+        #     print("13 PACOTE ACHADO")
+        #
+        # if decoded_message.find(message_14) != -1:
+        #     print("14 PACOTE ACHADO")
+        #
+        # if decoded_message.find(message_15) != -1:
+        #     print("15 PACOTE ACHADO")
+        #
+        # if decoded_message.find(message_16) != -1:
+        #     print("16 PACOTE ACHADO")
+        #
+        # if decoded_message.find(message_17) != -1:
+        #     print("17 PACOTE ACHADO")
+        #
+        # if decoded_message.find(message_18) != -1:
+        #     print("18 PACOTE ACHADO")
+        #
+        # if decoded_message.find(message_19) != -1:
+        #     print("19 PACOTE ACHADO")
+        #
+        # if decoded_message.find(message_20) != -1:
+        #     print("20 PACOTE ACHADO")
+        #
+        # if decoded_message.find(message_21) != -1:
+        #     print("21 PACOTE ACHADO")
+
+        # print('Outputted {} items.'.format(L_payload))
+
+        # output_items[0][:L_payload] = input_items[0][:L_payload]
+        # self.consume(0, L_payload)
+        #
+        # self.mode = 'find'
+        #
+        # return len(decoded_message)
+
+    def general_work_find(self, input_items, output_items):
+        L_in = len(input_items[0])
+
+        if L_in &lt; 5000 :
+            return 0
+
+        filter = np.array(np.ones(6), dtype=np.int)
+
+        access_code_binary = np.array([int(b) for b in self.access_code], dtype=np.int)
+        access_code_binary = np.convolve(access_code_binary, filter)
+
+        input_decoded = np.array(input_items[0] , dtype=np.float32)
+
+        corr = np.correlate(input_decoded, access_code_binary)
+        corr = corr.tolist()
+
+        max_corr = max(corr)
+
+        if max_corr &gt; 96:
+            match = True
+        else:
+            match = False
+
+        if not match:
+            self.consume(0, L_in - len(self.access_code))
+        else:
+            self.consume(0, len(self.access_code))
+            self.mode = 'output'
+            # correlation_index = corr.index(max(corr)) + 96
+            # print(correlation_index)
+            # final_index = correlation_index + self.payload_length
+            #
+            # output_index = final_index - correlation_index
+            #
+            # n_sample = 6
+            # samples = ''
+            # sample_counter = 0
+            # decoded_message = ''
+            #
+            # velho = open("input_items.txt", "w+")
+            # for input in input_items[0]:
+            #     velho.write(str(input.astype(int)))
+            #
+            # velho.close()
+            #
+            #
+            # for index in range(n_sample/2 , len(input_items[0][correlation_index:final_index]), n_sample):
+            #     if input_items[0][correlation_index + index] &gt; 0.5:
+            #         samples = samples + '1'
+            #     else:
+            #         samples = samples + '0'
+            #
+            # for index in range(0, 223, 2):
+            #     if samples[index] == '0' and samples[index + 1] == '1':
+            #         decoded_message = decoded_message + '0'
+            #     else:
+            #         decoded_message = decoded_message + '1'
+            #
+            # # print("DECODED_MESSAGE:    ", decoded_message)
+            #
+            # decoded_message_hex = hex(int(decoded_message, 2))
+            # decoded_message_hex = decoded_message_hex[2:-1]
+            #
+            # type_code = adsb_dec.typecode(decoded_message_hex)
+            #
+            # if type_code &lt; 1 or type_code &gt; 4:
+            #     pass
+            # else:
+            #     self.category = adsb_dec.category(decoded_message_hex)
+            #     self.callsign = adsb_dec.callsign(decoded_message_hex)
+            #
+            # if (9 &lt;= type_code &lt;= 18 and 9 &lt;= type_code &lt;= 18):
+            #     if self.position_message:
+            #         self.position = adsb_dec.airborne_position(self.position_message, decoded_message_hex, 1, 2)
+            #         self.position_message = ''
+            #     else:
+            #         self.position_message = decoded_message_hex
+            # else:
+            #     pass
+            #
+            # print("CATEGORY: " + str(self.category) + "          CALLSIGN: " + str(self.callsign) + "          POSITION: " + str(self.position))
+            #
+            # output_items[0][:len(input_items[0][correlation_index:final_index])] = input_items[0][correlation_index:final_index]
+            #
+            # self.consume(0, len(input_items[0]))
+            #
+            # return len(output_items[0])
+
+
+        return 0
+</value>
+    </param>
+    <param>
+      <key>comment</key>
+      <value></value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(864, 852)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>id</key>
+      <value>epy_block_1</value>
+    </param>
+    <param>
+      <key>payload_length</key>
+      <value>224*6</value>
+    </param>
+    <param>
+      <key>threshold</key>
+      <value>0</value>
     </param>
   </block>
   <block>
@@ -1068,7 +1493,7 @@ class blk(gr.sync_block):  # other base classes are basic_block, decim_block, in
     </param>
     <param>
       <key>_enabled</key>
-      <value>0</value>
+      <value>1</value>
     </param>
     <param>
       <key>example_param</key>
@@ -1145,8 +1570,8 @@ class blk(gr.basic_block):
             samples = ''
 
             sample_counter = 0
-            # for index in range(n_sample/2, len(input_items[0]) - 1, n_sample):
-            for index in range(0, len(input_items[0]) - 1):
+            for index in range(n_sample/2, len(input_items[0]) - 1, n_sample):
+            # ~for index in range(0, len(input_items[0]) - 1):
 
                 samples = samples + str((input_items[0][index]))
                 sample_counter = sample_counter + 1
@@ -1320,7 +1745,7 @@ class blk(gr.basic_block):
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(1048, 536)</value>
+      <value>(1168, 608)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -1347,7 +1772,7 @@ class blk(gr.basic_block):
     </param>
     <param>
       <key>decim</key>
-      <value>sps</value>
+      <value>1</value>
     </param>
     <param>
       <key>_enabled</key>
@@ -1355,7 +1780,7 @@ class blk(gr.basic_block):
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(648, 764)</value>
+      <value>(624, 860)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -1379,7 +1804,62 @@ class blk(gr.basic_block):
     </param>
     <param>
       <key>taps</key>
+      <value>np.ones(6)/6</value>
+    </param>
+    <param>
+      <key>type</key>
+      <value>fff</value>
+    </param>
+  </block>
+  <block>
+    <key>fir_filter_xxx</key>
+    <param>
+      <key>alias</key>
+      <value></value>
+    </param>
+    <param>
+      <key>comment</key>
+      <value></value>
+    </param>
+    <param>
+      <key>affinity</key>
+      <value></value>
+    </param>
+    <param>
+      <key>decim</key>
       <value>1</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(608, 732)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>id</key>
+      <value>fir_filter_xxx_0_0</value>
+    </param>
+    <param>
+      <key>maxoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>minoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>samp_delay</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>taps</key>
+      <value>np.ones(6)/6</value>
     </param>
     <param>
       <key>type</key>
@@ -1437,7 +1917,7 @@ class blk(gr.basic_block):
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(216, 436)</value>
+      <value>(216, 444)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -2392,7 +2872,7 @@ class blk(gr.basic_block):
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(1000, 340)</value>
+      <value>(1000, 316)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -2574,11 +3054,11 @@ class blk(gr.interp_block):
     </param>
     <param>
       <key>_enabled</key>
-      <value>0</value>
+      <value>1</value>
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(232, 612)</value>
+      <value>(680, 524)</value>
     </param>
     <param>
       <key>gui_hint</key>
@@ -2886,740 +3366,6 @@ class blk(gr.interp_block):
     </param>
     <param>
       <key>type</key>
-      <value>float</value>
-    </param>
-    <param>
-      <key>update_time</key>
-      <value>0.05</value>
-    </param>
-    <param>
-      <key>ylabel</key>
-      <value>Amplitude</value>
-    </param>
-    <param>
-      <key>yunit</key>
-      <value>""</value>
-    </param>
-    <param>
-      <key>ymax</key>
-      <value>1</value>
-    </param>
-    <param>
-      <key>ymin</key>
-      <value>-1</value>
-    </param>
-  </block>
-  <block>
-    <key>qtgui_time_sink_x</key>
-    <param>
-      <key>autoscale</key>
-      <value>False</value>
-    </param>
-    <param>
-      <key>axislabels</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>alias</key>
-      <value></value>
-    </param>
-    <param>
-      <key>comment</key>
-      <value></value>
-    </param>
-    <param>
-      <key>ctrlpanel</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>affinity</key>
-      <value></value>
-    </param>
-    <param>
-      <key>entags</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(904, 748)</value>
-    </param>
-    <param>
-      <key>gui_hint</key>
-      <value></value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>grid</key>
-      <value>False</value>
-    </param>
-    <param>
-      <key>id</key>
-      <value>qtgui_time_sink_x_0_0</value>
-    </param>
-    <param>
-      <key>legend</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>alpha1</key>
-      <value>1.0</value>
-    </param>
-    <param>
-      <key>color1</key>
-      <value>"blue"</value>
-    </param>
-    <param>
-      <key>label1</key>
-      <value></value>
-    </param>
-    <param>
-      <key>marker1</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>style1</key>
-      <value>1</value>
-    </param>
-    <param>
-      <key>width1</key>
-      <value>1</value>
-    </param>
-    <param>
-      <key>alpha10</key>
-      <value>1.0</value>
-    </param>
-    <param>
-      <key>color10</key>
-      <value>"blue"</value>
-    </param>
-    <param>
-      <key>label10</key>
-      <value></value>
-    </param>
-    <param>
-      <key>marker10</key>
-      <value>-1</value>
-    </param>
-    <param>
-      <key>style10</key>
-      <value>1</value>
-    </param>
-    <param>
-      <key>width10</key>
-      <value>1</value>
-    </param>
-    <param>
-      <key>alpha2</key>
-      <value>1.0</value>
-    </param>
-    <param>
-      <key>color2</key>
-      <value>"red"</value>
-    </param>
-    <param>
-      <key>label2</key>
-      <value></value>
-    </param>
-    <param>
-      <key>marker2</key>
-      <value>-1</value>
-    </param>
-    <param>
-      <key>style2</key>
-      <value>1</value>
-    </param>
-    <param>
-      <key>width2</key>
-      <value>1</value>
-    </param>
-    <param>
-      <key>alpha3</key>
-      <value>1.0</value>
-    </param>
-    <param>
-      <key>color3</key>
-      <value>"green"</value>
-    </param>
-    <param>
-      <key>label3</key>
-      <value></value>
-    </param>
-    <param>
-      <key>marker3</key>
-      <value>-1</value>
-    </param>
-    <param>
-      <key>style3</key>
-      <value>1</value>
-    </param>
-    <param>
-      <key>width3</key>
-      <value>1</value>
-    </param>
-    <param>
-      <key>alpha4</key>
-      <value>1.0</value>
-    </param>
-    <param>
-      <key>color4</key>
-      <value>"black"</value>
-    </param>
-    <param>
-      <key>label4</key>
-      <value></value>
-    </param>
-    <param>
-      <key>marker4</key>
-      <value>-1</value>
-    </param>
-    <param>
-      <key>style4</key>
-      <value>1</value>
-    </param>
-    <param>
-      <key>width4</key>
-      <value>1</value>
-    </param>
-    <param>
-      <key>alpha5</key>
-      <value>1.0</value>
-    </param>
-    <param>
-      <key>color5</key>
-      <value>"cyan"</value>
-    </param>
-    <param>
-      <key>label5</key>
-      <value></value>
-    </param>
-    <param>
-      <key>marker5</key>
-      <value>-1</value>
-    </param>
-    <param>
-      <key>style5</key>
-      <value>1</value>
-    </param>
-    <param>
-      <key>width5</key>
-      <value>1</value>
-    </param>
-    <param>
-      <key>alpha6</key>
-      <value>1.0</value>
-    </param>
-    <param>
-      <key>color6</key>
-      <value>"magenta"</value>
-    </param>
-    <param>
-      <key>label6</key>
-      <value></value>
-    </param>
-    <param>
-      <key>marker6</key>
-      <value>-1</value>
-    </param>
-    <param>
-      <key>style6</key>
-      <value>1</value>
-    </param>
-    <param>
-      <key>width6</key>
-      <value>1</value>
-    </param>
-    <param>
-      <key>alpha7</key>
-      <value>1.0</value>
-    </param>
-    <param>
-      <key>color7</key>
-      <value>"yellow"</value>
-    </param>
-    <param>
-      <key>label7</key>
-      <value></value>
-    </param>
-    <param>
-      <key>marker7</key>
-      <value>-1</value>
-    </param>
-    <param>
-      <key>style7</key>
-      <value>1</value>
-    </param>
-    <param>
-      <key>width7</key>
-      <value>1</value>
-    </param>
-    <param>
-      <key>alpha8</key>
-      <value>1.0</value>
-    </param>
-    <param>
-      <key>color8</key>
-      <value>"dark red"</value>
-    </param>
-    <param>
-      <key>label8</key>
-      <value></value>
-    </param>
-    <param>
-      <key>marker8</key>
-      <value>-1</value>
-    </param>
-    <param>
-      <key>style8</key>
-      <value>1</value>
-    </param>
-    <param>
-      <key>width8</key>
-      <value>1</value>
-    </param>
-    <param>
-      <key>alpha9</key>
-      <value>1.0</value>
-    </param>
-    <param>
-      <key>color9</key>
-      <value>"dark green"</value>
-    </param>
-    <param>
-      <key>label9</key>
-      <value></value>
-    </param>
-    <param>
-      <key>marker9</key>
-      <value>-1</value>
-    </param>
-    <param>
-      <key>style9</key>
-      <value>1</value>
-    </param>
-    <param>
-      <key>width9</key>
-      <value>1</value>
-    </param>
-    <param>
-      <key>name</key>
-      <value>""</value>
-    </param>
-    <param>
-      <key>nconnections</key>
-      <value>1</value>
-    </param>
-    <param>
-      <key>size</key>
-      <value>2048</value>
-    </param>
-    <param>
-      <key>srate</key>
-      <value>12000000</value>
-    </param>
-    <param>
-      <key>stemplot</key>
-      <value>False</value>
-    </param>
-    <param>
-      <key>tr_chan</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>tr_delay</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>tr_level</key>
-      <value>0.0</value>
-    </param>
-    <param>
-      <key>tr_mode</key>
-      <value>qtgui.TRIG_MODE_AUTO</value>
-    </param>
-    <param>
-      <key>tr_slope</key>
-      <value>qtgui.TRIG_SLOPE_POS</value>
-    </param>
-    <param>
-      <key>tr_tag</key>
-      <value>""</value>
-    </param>
-    <param>
-      <key>type</key>
-      <value>float</value>
-    </param>
-    <param>
-      <key>update_time</key>
-      <value>0.05</value>
-    </param>
-    <param>
-      <key>ylabel</key>
-      <value>Amplitude 2</value>
-    </param>
-    <param>
-      <key>yunit</key>
-      <value>""</value>
-    </param>
-    <param>
-      <key>ymax</key>
-      <value>1</value>
-    </param>
-    <param>
-      <key>ymin</key>
-      <value>-1</value>
-    </param>
-  </block>
-  <block>
-    <key>qtgui_time_sink_x</key>
-    <param>
-      <key>autoscale</key>
-      <value>False</value>
-    </param>
-    <param>
-      <key>axislabels</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>alias</key>
-      <value></value>
-    </param>
-    <param>
-      <key>comment</key>
-      <value></value>
-    </param>
-    <param>
-      <key>ctrlpanel</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>affinity</key>
-      <value></value>
-    </param>
-    <param>
-      <key>entags</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(776, 660)</value>
-    </param>
-    <param>
-      <key>gui_hint</key>
-      <value></value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>grid</key>
-      <value>False</value>
-    </param>
-    <param>
-      <key>id</key>
-      <value>qtgui_time_sink_x_0_1</value>
-    </param>
-    <param>
-      <key>legend</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>alpha1</key>
-      <value>1.0</value>
-    </param>
-    <param>
-      <key>color1</key>
-      <value>"blue"</value>
-    </param>
-    <param>
-      <key>label1</key>
-      <value></value>
-    </param>
-    <param>
-      <key>marker1</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>style1</key>
-      <value>1</value>
-    </param>
-    <param>
-      <key>width1</key>
-      <value>1</value>
-    </param>
-    <param>
-      <key>alpha10</key>
-      <value>1.0</value>
-    </param>
-    <param>
-      <key>color10</key>
-      <value>"blue"</value>
-    </param>
-    <param>
-      <key>label10</key>
-      <value></value>
-    </param>
-    <param>
-      <key>marker10</key>
-      <value>-1</value>
-    </param>
-    <param>
-      <key>style10</key>
-      <value>1</value>
-    </param>
-    <param>
-      <key>width10</key>
-      <value>1</value>
-    </param>
-    <param>
-      <key>alpha2</key>
-      <value>1.0</value>
-    </param>
-    <param>
-      <key>color2</key>
-      <value>"red"</value>
-    </param>
-    <param>
-      <key>label2</key>
-      <value></value>
-    </param>
-    <param>
-      <key>marker2</key>
-      <value>-1</value>
-    </param>
-    <param>
-      <key>style2</key>
-      <value>1</value>
-    </param>
-    <param>
-      <key>width2</key>
-      <value>1</value>
-    </param>
-    <param>
-      <key>alpha3</key>
-      <value>1.0</value>
-    </param>
-    <param>
-      <key>color3</key>
-      <value>"green"</value>
-    </param>
-    <param>
-      <key>label3</key>
-      <value></value>
-    </param>
-    <param>
-      <key>marker3</key>
-      <value>-1</value>
-    </param>
-    <param>
-      <key>style3</key>
-      <value>1</value>
-    </param>
-    <param>
-      <key>width3</key>
-      <value>1</value>
-    </param>
-    <param>
-      <key>alpha4</key>
-      <value>1.0</value>
-    </param>
-    <param>
-      <key>color4</key>
-      <value>"black"</value>
-    </param>
-    <param>
-      <key>label4</key>
-      <value></value>
-    </param>
-    <param>
-      <key>marker4</key>
-      <value>-1</value>
-    </param>
-    <param>
-      <key>style4</key>
-      <value>1</value>
-    </param>
-    <param>
-      <key>width4</key>
-      <value>1</value>
-    </param>
-    <param>
-      <key>alpha5</key>
-      <value>1.0</value>
-    </param>
-    <param>
-      <key>color5</key>
-      <value>"cyan"</value>
-    </param>
-    <param>
-      <key>label5</key>
-      <value></value>
-    </param>
-    <param>
-      <key>marker5</key>
-      <value>-1</value>
-    </param>
-    <param>
-      <key>style5</key>
-      <value>1</value>
-    </param>
-    <param>
-      <key>width5</key>
-      <value>1</value>
-    </param>
-    <param>
-      <key>alpha6</key>
-      <value>1.0</value>
-    </param>
-    <param>
-      <key>color6</key>
-      <value>"magenta"</value>
-    </param>
-    <param>
-      <key>label6</key>
-      <value></value>
-    </param>
-    <param>
-      <key>marker6</key>
-      <value>-1</value>
-    </param>
-    <param>
-      <key>style6</key>
-      <value>1</value>
-    </param>
-    <param>
-      <key>width6</key>
-      <value>1</value>
-    </param>
-    <param>
-      <key>alpha7</key>
-      <value>1.0</value>
-    </param>
-    <param>
-      <key>color7</key>
-      <value>"yellow"</value>
-    </param>
-    <param>
-      <key>label7</key>
-      <value></value>
-    </param>
-    <param>
-      <key>marker7</key>
-      <value>-1</value>
-    </param>
-    <param>
-      <key>style7</key>
-      <value>1</value>
-    </param>
-    <param>
-      <key>width7</key>
-      <value>1</value>
-    </param>
-    <param>
-      <key>alpha8</key>
-      <value>1.0</value>
-    </param>
-    <param>
-      <key>color8</key>
-      <value>"dark red"</value>
-    </param>
-    <param>
-      <key>label8</key>
-      <value></value>
-    </param>
-    <param>
-      <key>marker8</key>
-      <value>-1</value>
-    </param>
-    <param>
-      <key>style8</key>
-      <value>1</value>
-    </param>
-    <param>
-      <key>width8</key>
-      <value>1</value>
-    </param>
-    <param>
-      <key>alpha9</key>
-      <value>1.0</value>
-    </param>
-    <param>
-      <key>color9</key>
-      <value>"dark green"</value>
-    </param>
-    <param>
-      <key>label9</key>
-      <value></value>
-    </param>
-    <param>
-      <key>marker9</key>
-      <value>-1</value>
-    </param>
-    <param>
-      <key>style9</key>
-      <value>1</value>
-    </param>
-    <param>
-      <key>width9</key>
-      <value>1</value>
-    </param>
-    <param>
-      <key>name</key>
-      <value>""</value>
-    </param>
-    <param>
-      <key>nconnections</key>
-      <value>1</value>
-    </param>
-    <param>
-      <key>size</key>
-      <value>2048</value>
-    </param>
-    <param>
-      <key>srate</key>
-      <value>12000000</value>
-    </param>
-    <param>
-      <key>stemplot</key>
-      <value>False</value>
-    </param>
-    <param>
-      <key>tr_chan</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>tr_delay</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>tr_level</key>
-      <value>0.0</value>
-    </param>
-    <param>
-      <key>tr_mode</key>
-      <value>qtgui.TRIG_MODE_AUTO</value>
-    </param>
-    <param>
-      <key>tr_slope</key>
-      <value>qtgui.TRIG_SLOPE_POS</value>
-    </param>
-    <param>
-      <key>tr_tag</key>
-      <value>""</value>
-    </param>
-    <param>
-      <key>type</key>
       <value>complex</value>
     </param>
     <param>
@@ -3679,7 +3425,7 @@ class blk(gr.interp_block):
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(400, 900)</value>
+      <value>(904, 684)</value>
     </param>
     <param>
       <key>gui_hint</key>
@@ -3695,7 +3441,7 @@ class blk(gr.interp_block):
     </param>
     <param>
       <key>id</key>
-      <value>qtgui_time_sink_x_0_1_0</value>
+      <value>qtgui_time_sink_x_0_0_1</value>
     </param>
     <param>
       <key>legend</key>
@@ -3987,7 +3733,7 @@ class blk(gr.interp_block):
     </param>
     <param>
       <key>type</key>
-      <value>complex</value>
+      <value>float</value>
     </param>
     <param>
       <key>update_time</key>
@@ -4003,11 +3749,70 @@ class blk(gr.interp_block):
     </param>
     <param>
       <key>ymax</key>
-      <value>1</value>
+      <value>0.05</value>
     </param>
     <param>
       <key>ymin</key>
-      <value>-1</value>
+      <value>0</value>
+    </param>
+  </block>
+  <block>
+    <key>rational_resampler_xxx</key>
+    <param>
+      <key>alias</key>
+      <value></value>
+    </param>
+    <param>
+      <key>comment</key>
+      <value></value>
+    </param>
+    <param>
+      <key>affinity</key>
+      <value></value>
+    </param>
+    <param>
+      <key>decim</key>
+      <value>int(2.88e6)</value>
+    </param>
+    <param>
+      <key>_enabled</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>fbw</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>_coordinate</key>
+      <value>(432, 844)</value>
+    </param>
+    <param>
+      <key>_rotation</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>id</key>
+      <value>rational_resampler_xxx_0</value>
+    </param>
+    <param>
+      <key>interp</key>
+      <value>int(12e6)</value>
+    </param>
+    <param>
+      <key>maxoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>minoutbuf</key>
+      <value>0</value>
+    </param>
+    <param>
+      <key>taps</key>
+      <value></value>
+    </param>
+    <param>
+      <key>type</key>
+      <value>fff</value>
     </param>
   </block>
   <block>
@@ -4038,7 +3843,7 @@ class blk(gr.interp_block):
     </param>
     <param>
       <key>freq0</key>
-      <value>fc + 3000000</value>
+      <value>fc - 10e3</value>
     </param>
     <param>
       <key>gain_mode0</key>
@@ -5314,7 +5119,7 @@ class blk(gr.interp_block):
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(96, 708)</value>
+      <value>(0, 804)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -5410,7 +5215,7 @@ class blk(gr.interp_block):
     </param>
     <param>
       <key>sample_rate</key>
-      <value>32000</value>
+      <value>2.88e6</value>
     </param>
     <param>
       <key>sync</key>
@@ -5425,7 +5230,7 @@ class blk(gr.interp_block):
     </param>
     <param>
       <key>_enabled</key>
-      <value>True</value>
+      <value>1</value>
     </param>
     <param>
       <key>_coordinate</key>
@@ -5452,11 +5257,11 @@ class blk(gr.interp_block):
     </param>
     <param>
       <key>_enabled</key>
-      <value>True</value>
+      <value>1</value>
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(48, 444)</value>
+      <value>(0, 452)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -5484,8 +5289,14 @@ class blk(gr.interp_block):
     <sink_key>0</sink_key>
   </connection>
   <connection>
-    <source_block_id>blocks_complex_to_real_0</source_block_id>
-    <sink_block_id>fir_filter_xxx_0</sink_block_id>
+    <source_block_id>blocks_complex_to_float_0</source_block_id>
+    <sink_block_id>fir_filter_xxx_0_0</sink_block_id>
+    <source_key>0</source_key>
+    <sink_key>0</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>blocks_complex_to_mag_0</source_block_id>
+    <sink_block_id>rational_resampler_xxx_0</sink_block_id>
     <source_key>0</source_key>
     <sink_key>0</sink_key>
   </connection>
@@ -5494,6 +5305,12 @@ class blk(gr.interp_block):
     <sink_block_id>blocks_multiply_xx_0</sink_block_id>
     <source_key>0</source_key>
     <sink_key>1</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>blocks_float_to_complex_0</source_block_id>
+    <sink_block_id>qtgui_time_sink_x_0</sink_block_id>
+    <source_key>0</source_key>
+    <sink_key>0</sink_key>
   </connection>
   <connection>
     <source_block_id>blocks_float_to_int_0</source_block_id>
@@ -5510,12 +5327,6 @@ class blk(gr.interp_block):
   <connection>
     <source_block_id>blocks_multiply_xx_0</source_block_id>
     <sink_block_id>osmosdr_sink_0</sink_block_id>
-    <source_key>0</source_key>
-    <sink_key>0</sink_key>
-  </connection>
-  <connection>
-    <source_block_id>blocks_multiply_xx_0</source_block_id>
-    <sink_block_id>qtgui_time_sink_x_0_1</sink_block_id>
     <source_key>0</source_key>
     <sink_key>0</sink_key>
   </connection>
@@ -5550,6 +5361,12 @@ class blk(gr.interp_block):
     <sink_key>0</sink_key>
   </connection>
   <connection>
+    <source_block_id>epy_block_1</source_block_id>
+    <sink_block_id>blocks_null_sink_0_0</sink_block_id>
+    <source_key>0</source_key>
+    <sink_key>0</sink_key>
+  </connection>
+  <connection>
     <source_block_id>epy_block_2</source_block_id>
     <sink_block_id>blocks_null_sink_0</sink_block_id>
     <source_key>0</source_key>
@@ -5557,7 +5374,13 @@ class blk(gr.interp_block):
   </connection>
   <connection>
     <source_block_id>fir_filter_xxx_0</source_block_id>
-    <sink_block_id>qtgui_time_sink_x_0_0</sink_block_id>
+    <sink_block_id>epy_block_1</sink_block_id>
+    <source_key>0</source_key>
+    <sink_key>0</sink_key>
+  </connection>
+  <connection>
+    <source_block_id>fir_filter_xxx_0</source_block_id>
+    <sink_block_id>qtgui_time_sink_x_0_0_1</sink_block_id>
     <source_key>0</source_key>
     <sink_key>0</sink_key>
   </connection>
@@ -5568,26 +5391,20 @@ class blk(gr.interp_block):
     <sink_key>0</sink_key>
   </connection>
   <connection>
-    <source_block_id>interp_fir_filter_xxx_0</source_block_id>
-    <sink_block_id>qtgui_time_sink_x_0</sink_block_id>
-    <source_key>0</source_key>
-    <sink_key>0</sink_key>
-  </connection>
-  <connection>
     <source_block_id>ppm_mapper</source_block_id>
     <sink_block_id>blocks_stream_mux_0</sink_block_id>
     <source_key>0</source_key>
     <sink_key>1</sink_key>
   </connection>
   <connection>
-    <source_block_id>rtlsdr_source_0</source_block_id>
-    <sink_block_id>blocks_complex_to_real_0</sink_block_id>
+    <source_block_id>rational_resampler_xxx_0</source_block_id>
+    <sink_block_id>fir_filter_xxx_0</sink_block_id>
     <source_key>0</source_key>
     <sink_key>0</sink_key>
   </connection>
   <connection>
     <source_block_id>rtlsdr_source_0</source_block_id>
-    <sink_block_id>qtgui_time_sink_x_0_1_0</sink_block_id>
+    <sink_block_id>blocks_complex_to_mag_0</sink_block_id>
     <source_key>0</source_key>
     <sink_key>0</sink_key>
   </connection>
