@@ -13,22 +13,16 @@ from gnuradio import gr
 from subprocess import call
 
 MOVEMENT_CONST = 0.0001
-class blk(gr.basic_block):  # other base classes are basic_block, decim_block, interp_block
-    """Embedded Python Block example - a simple multiply const"""
+class blk(gr.basic_block):
 
-    def __init__(self):  # only default arguments here
-        """arguments to this function show up as parameters in GRC"""
-
+    def __init__(self):
 
         gr.basic_block.__init__(
             self,
-            name='ADSB encoder',   # will show up in GRC
+            name='ADSB encoder',
             in_sig=[],
             out_sig=[np.uint8]
         )
-
-        # if an attribute with the same name as a parameter is found,
-        # a callback is registered (properties work, too).
 
         self.int_to_return = []
 
@@ -45,8 +39,8 @@ class blk(gr.basic_block):  # other base classes are basic_block, decim_block, i
         lon_list.append(current_longitude + MOVEMENT_CONST)
 
 
-        lat_list = np.linspace(current_latitude, coordinates["latitude"], 1000).tolist()
-        lon_list = np.linspace(current_longitude, coordinates["longitude"], 1000).tolist()
+        lat_list = np.linspace(current_latitude, coordinates["latitude"], 100).tolist()
+        lon_list = np.linspace(current_longitude, coordinates["longitude"], 100).tolist()
 
         lat_list.append(coordinates['latitude'])
         lon_list.append(coordinates["longitude"])
@@ -69,8 +63,6 @@ class blk(gr.basic_block):  # other base classes are basic_block, decim_block, i
             plan.write(util.hex2bin(message_position))
             plan.write(util.hex2bin(message_position1))
 
-            # coordenadas_dec = adsb_dec.position(message_position,
-            #                                     message_position1, 1, 11)
             i = i + 2
 
     def general_work(self, input_items, output_items):

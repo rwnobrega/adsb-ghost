@@ -1,4 +1,0 @@
-{'command': ['set'], 'latitude': [-27.670118], 'longitude': [-48.5481544], 'altitude' : [3000], 'name' : ['FLYDUTCH']}
-{'command': ['name'], 'name' : ['FLYIFSC']}
-{'command': ['travel'], 'latitude': [-27.6107649], 'longitude': [-48.6256517], 'npoints': [200]}
-{'command': ['travel'], 'latitude': [-35.656505], 'longitude': [-48.678531], 'npoints': [200]}
