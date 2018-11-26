@@ -3,12 +3,28 @@ import util
 
 latz = 15
 
-# def aircraft_velocity(TC = '10011', ST = '001', IC = '0', RESV_A = '1', NAC = '000', S_EW, V_EW, S_NS, V_NS,
-#                      VrSrc, S_Vr, Vr, RESV_B = '00', S_Dif, Dif):
-#
-#     # TC -> 10011 (19) - Type Code
-#     # ST -> 001 (ground velocity - Subtype)
-#     # IC -> 0 (Intent change flag)
+def aircraft_velocity(icao, S_EW, V_EW, S_NS, V_NS):
+
+    TC = '10011'
+    ST = '001'
+    IC = '0'
+    RESV_A = '1'
+    NAC = '000'
+    VrSrc = '0'
+    S_Vr = '1'
+    Vr = '000001110'
+    RESV_B = '00'
+    S_Dif = '0'
+    Dif = '0010111'
+    package =  TC + ST + IC + RESV_A + NAC + S_EW + V_EW + S_NS + V_NS + VrSrc + S_Vr + Vr + RESV_B + S_Dif + Dif
+
+    package = hex(int(package, 2))
+    package = package.split("0x")
+    package = package[1]
+    package = "8D" + icao + package
+    crc = '{0:06X}'.format(int(util.crc(package + '000000', encode=True), 2))
+    return package + crc
+
 
 
 def aircraft_altitude(altitude_new):
