@@ -843,8 +843,8 @@ class blk(gr.basic_block):
             alts = '110000111000'
             plan = []
             lock = True
-            current_latitude = -27.608339
-            current_longitude = -48.633269
+            current_latitude = 0
+            current_longitude = 0
             flight_plan = open("/home/llucindov/dev/telecom/adsb-ghost/flight_plan.txt","r")
             a = flight_plan.readlines()
             list_command = []
@@ -859,6 +859,13 @@ class blk(gr.basic_block):
                 for i in range(len(a)):
                     if i == (len(a) - 1):
                         lock = False
+
+                    if list_command[i] == 'set_position':
+                        current_coordinates = list_value[i].split(",")
+                        current_latitude = float(current_coordinates[0])
+                        current_longitude = float(current_coordinates[1])
+                        print(current_latitude)
+                        print(current_longitude)
 
                     if list_command[i] == 'travel':
                         destiny_coordinates = list_value[i].split(",")
@@ -883,7 +890,6 @@ class blk(gr.basic_block):
 
         else:
             if self.int_to_return:
-                print("lol")
                 output_items[0][0] = self.int_to_return.pop(0)
                 return 1
 </value>

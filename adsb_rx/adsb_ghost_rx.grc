@@ -661,6 +661,7 @@ class blk(gr.basic_block):
         self.access_code = access_code
         self.payload_length = payload_length
         self.corr = 0
+        self.velocity = 0
 
         self.set_min_output_buffer(2**16)
 
@@ -719,6 +720,12 @@ class blk(gr.basic_block):
                 self.category = adsb_dec.category(decoded_message_hex)
                 self.callsign = adsb_dec.callsign(decoded_message_hex)
 
+            if 5 &lt;= type_code &lt;= 8:
+                self.velocity = surface_velocity(decoded_message_hex)
+
+            elif type_code == 19:
+                self.velocity = airborne_velocity(decoded_message_hex)
+
             if (9 &lt;= type_code &lt;= 18 and 9 &lt;= type_code &lt;= 18):
                 if self.position_message and (self.position_message != decoded_message_hex):
                     print(adsb_dec.oe_flag(self.position_message))
@@ -735,7 +742,7 @@ class blk(gr.basic_block):
             else:
                 pass
 
-            print("CATEGORY: " + str(self.category) + "          CALLSIGN: " + str(self.callsign) + "          POSITION: " + str(self.position))
+            print("CATEGORY: " + str(self.category) + "          CALLSIGN: " + str(self.callsign) + "          POSITION: " + str(self.position) + "          VELOCITY: " + str(self.velocity))
             self.consume(0, L_payload + len(self.access_code))
             return 224
 
