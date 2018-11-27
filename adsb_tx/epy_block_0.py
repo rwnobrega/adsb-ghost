@@ -60,8 +60,8 @@ class blk(gr.basic_block):
             longitude = encoder.get_long(coordenadas)
             message_position1 = encoder.aircraft_position('01011000', alt, latitude,
                                                           longitude, '1', icao)
-            plan.write(util.hex2bin(message_position))
-            plan.write(util.hex2bin(message_position1))
+            plan.append(util.hex2bin(message_position))
+            plan.append(util.hex2bin(message_position1))
 
             i = i + 2
 
@@ -69,7 +69,7 @@ class blk(gr.basic_block):
         if not self.int_to_return:
             icao = "40621D"
             alts = '110000111000'
-            plan = open('/home/llucindov/dev/telecom/adsb-ghost/flight_plan_binary.txt', 'w+')
+            plan = []
             lock = True
             current_latitude = -27.608339
             current_longitude = -48.633269
@@ -96,12 +96,11 @@ class blk(gr.basic_block):
 
                     if list_command[i] == 'name':
                         message = encoder.aircraft_id(icao, list_value[i])
-                        plan.write(util.hex2bin(message))
+                        plan.append(util.hex2bin(message))
 
-            plan.close()
-            b = open('/home/llucindov/dev/telecom/adsb-ghost/flight_plan_binary.txt', "r")
-            c = b.readlines()
-            c = str(c)
+            c = ''
+            for item in plan:
+                c = c + item
             c = c[2:(len(c)-2)]
 
             chunks = [c[i:i+8] for i in range(0, len(c), 8)]
@@ -112,5 +111,6 @@ class blk(gr.basic_block):
 
         else:
             if self.int_to_return:
+                print("lol")
                 output_items[0][0] = self.int_to_return.pop(0)
                 return 1
