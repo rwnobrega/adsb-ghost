@@ -98,11 +98,6 @@ class blk(gr.basic_block):
                         message = encoder.aircraft_id(icao, list_value[i])
                         plan.write(util.hex2bin(message))
 
-                    # if list_command[i] == 'alt':
-                    #     destiny_coordinates = {'latitude': current_latitude,'longitude': current_longitude}
-                    #     alts = encoder.aircraft_altitude(int(list_value[i]))
-                    #     self.travel(self, destiny_coordinates, alts, message, current_latitude, current_longitude, plan)
-
             plan.close()
             b = open('/home/llucindov/dev/telecom/adsb-ghost/flight_plan_binary.txt', "r")
             c = b.readlines()
