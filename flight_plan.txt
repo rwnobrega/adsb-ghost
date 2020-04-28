@@ -1,11 +1,5 @@
-travel-São José
-alt-2200
-travel-Porto Alegre
-travel-Lisboa Portugal
-travel-Berlim
-travel-Amsterda
-travel-Warsaw
-travel-Latvia
-travel-Moscow
-travel-Aeroporto de Congonhas SP
-travel-Aeroporto Hercilio Luz Florianopolis
+set_position;-27.608339,-48.633269
+name;FLYDUTCH
+travel;-30.037193,-51.218496,2000,200,300
+travel;-38.723658,-9.139275,2000,250,350
+travel;-27.670318,-48.546148,2000,360,370

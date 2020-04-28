@@ -92,12 +92,3 @@ def gray2int(graystr):
     num ^= (num >> 2)
     num ^= (num >> 1)
     return num
-
-# def mod(x, y):
-#     return x - (y * math.floor(x/y))
-#
-# def NL(lat):
-#     NZ = 15
-#     a = 1 - math.cos(math.pi/2*NZ)
-#     b = math.cos(((math.pi)/180)*lat)
-#     return math.floor((2*math.pi)/math.acos(1 - a/b))
