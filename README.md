@@ -1,3 +1,5 @@
+**This repository is now archived. Please use Lukter's fork instead: https://github.com/Lukter/adsb-ghost**
+
 # README ADS-B GHOST
 
 This repository has:
